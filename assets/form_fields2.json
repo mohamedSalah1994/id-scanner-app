@@ -1,0 +1,36 @@
+[
+  {
+    "id": "station_id",
+    "name": "Station Name",
+    "type": "select",
+    "options": [
+      {
+        "text": "Al Shohadaa",
+        "value": "alshohadaa"
+      },
+      {
+        "text": "Demerdash",
+        "value": "demerdash"
+      },
+      {
+        "text": "Ataba",
+        "value": "ataba"
+      }
+    ]
+  },
+  {
+    "id": "stream",
+    "name": "Stream",
+    "type": "radio",
+    "options": [
+      {
+        "text": "Development",
+        "value": "development"
+      },
+      {
+        "text": "Back up and Storage",
+        "value": "backup"
+      }
+    ]
+  }
+]

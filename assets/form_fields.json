@@ -1,0 +1,63 @@
+[
+  {
+    "id": "name",
+    "name": "Name",
+    "type": "text"
+  },
+  {
+    "id": "email",
+    "name": "Email",
+    "type": "email"
+  },
+  {
+    "id": "phone_number",
+    "name": "Phone Number",
+    "type": "phone"
+  },
+
+  {
+    "id": "amount",
+    "name": "Amount",
+    "type": "number"
+  },
+  {
+    "id": "date",
+    "name": "Date",
+    "type": "date"
+  },
+  {
+    "id": "bank_id",
+    "name": "Bank Name",
+    "type": "select",
+    "options": [
+      {
+        "text": "CIB Bank",
+        "value": "cib"
+      },
+      {
+        "text": "City Bank",
+        "value": "city"
+      },
+      {
+        "text": "UBL",
+        "value": "ubl"
+      }
+    ]
+  },
+  {
+    "id": "gender",
+    "name": "Gender",
+    "type": "radio",
+    "options": [
+      {
+        "text": "Male",
+        "value": "male"
+      },
+      {
+        "text": "Female",
+        "value": "female"
+      }
+    ]
+  }
+
+]
