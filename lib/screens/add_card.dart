@@ -25,13 +25,14 @@ class AddCard extends StatefulWidget {
 }
 
 class _AddCardState extends State<AddCard> {
-  EventModel? eventModel = Get.arguments;
+  // EventModel? eventModel = Get.arguments;
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CardController>(
       init: CardController(),
       builder: (controller) {
-        controller.getEvents();
+        //  controller.getEvents();
 
         return Directionality(
           textDirection: TextDirection.rtl,
@@ -94,7 +95,7 @@ class _AddCardState extends State<AddCard> {
                           inputLabel('النشاط'),
                           const SizedBox(height: 5),
                           controller.loading
-                              ? SizedBox()
+                              ? Center(child: CircularProgressIndicator())
                               : DropdownButtonFormField2(
                                   decoration: kAddCardInputFieldDecoration,
                                   isExpanded: true,
@@ -120,6 +121,7 @@ class _AddCardState extends State<AddCard> {
                                   }).toList(),
                                   onChanged: (EventDatum? newValue) {
                                     controller.selected = newValue;
+                                    print(controller.selected);
                                   },
                                   onSaved: (value) {}),
                           const SizedBox(height: 20),

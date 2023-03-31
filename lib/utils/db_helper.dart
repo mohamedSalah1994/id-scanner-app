@@ -22,6 +22,7 @@ class DBHelper {
           //create tables
           await db.execute('CREATE TABLE cards(id VARCHAR(50) PRIMARY KEY,'
               'event VARCHAR(50),'
+              'user_id INTEGER,'
               'front_image_path VARCHAR(255) NOT NULL,'
               'back_image_path VARCHAR(255) NOT NULL,'
               'user_address VARCHAR(255),'
@@ -54,6 +55,7 @@ class DBHelper {
 
   Future<int> updateCard(CardModel card) async {
     Database? db = await createDatabase();
-    return await db!.update('cards', card.toMap(), where: 'id = ?', whereArgs: [card.id]);
+    return await db!
+        .update('cards', card.toMap(), where: 'id = ?', whereArgs: [card.id]);
   }
 }

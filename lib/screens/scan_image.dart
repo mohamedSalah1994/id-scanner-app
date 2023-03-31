@@ -424,7 +424,6 @@ class _ScanImageState extends State<ScanImage> {
                       CardModel card = CardModel();
 
                       card.id = '$id-${DateTime.now()}';
-                      card.event = cardData.name;
 
                       controller.sendData(
                           cardData,

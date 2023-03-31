@@ -3,6 +3,7 @@ class CardData {
       // id,
       nationalId,
       // expirationDate,
+
       name,
       address,
       job,
@@ -23,6 +24,7 @@ class CardData {
   CardData.fromMap(Map<String, dynamic> jsonCardData) {
     // id = jsonCardData['id'];
     nationalId = jsonCardData['national_id'];
+
     // expirationDate = jsonCardData['expiration_date'];
     name = jsonCardData['name'];
     address = jsonCardData['address'];

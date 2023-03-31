@@ -1,12 +1,19 @@
 class CardModel {
-  String? id, event, frontImagePath, backImagePath, userAddress, deviceSerialNumber;
+  String? id,
+      event,
+      frontImagePath,
+      backImagePath,
+      userAddress,
+      deviceSerialNumber;
   double? lat, long;
+  int? user_id;
 
   CardModel();
 
   CardModel.fromMap(Map<String, dynamic> card) {
     id = card['id'];
     event = card['event'];
+    user_id = card['user_id'];
     frontImagePath = card['front_image_path'];
     backImagePath = card['back_image_path'];
     userAddress = card['user_address'];
@@ -18,6 +25,7 @@ class CardModel {
   Map<String, dynamic> toMap() => {
         'id': id,
         'event': event,
+        'user_id': user_id,
         'front_image_path': frontImagePath,
         'back_image_path': backImagePath,
         'user_address': userAddress,

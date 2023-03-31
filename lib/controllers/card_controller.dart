@@ -32,6 +32,7 @@ class CardController extends GetxController {
   late EventModel eventObject;
   @override
   void onInit() {
+    getEvents();
     super.onInit();
   }
 
@@ -112,16 +113,20 @@ class CardController extends GetxController {
       var currentPosition = await location.getCurrentLocation();
       var data = jsonDecode(token.toString());
       var user_id = data['id'];
+
       if (currentPosition != null) {
         CardModel card = CardModel();
+
         card.id = '$user_id-${DateTime.now()}';
         card.event = selected!.eventName;
+        card.user_id = user_id;
         card.frontImagePath = '$extStoragePath/$frontImageName';
         card.backImagePath = '$extStoragePath/$backImageName';
         card.lat = currentPosition.latitude;
         card.long = currentPosition.longitude;
         card.userAddress = await location.getCurrentAddress();
         card.deviceSerialNumber = await getSerialNumber();
+
         await dbHelper.addCard(card);
 
         isLoading = false;
@@ -302,16 +307,18 @@ class CardController extends GetxController {
 
   getEvents() async {
     try {
-      changeState(true);
+      // changeState(true);
 
       http.Response response = await http.get(
         Uri.tryParse('https://41.218.156.154/reader/getevents')!,
       );
       if (response.statusCode == 200) {
-        ///data successfully
+        changeState(false);
 
-        var result = jsonDecode(response.body);
-        eventObject = EventModel.fromJson(json.decode(response.body));
+        ///data successfully
+        var data = utf8.decode(response.bodyBytes);
+        var result = jsonDecode(data);
+        eventObject = EventModel.fromJson(result);
         print(result);
       } else {
         ///error
@@ -320,7 +327,7 @@ class CardController extends GetxController {
       log('Error while getting data is $e');
       print('Error while getting data is $e');
     } finally {
-      changeState(false);
+      // changeState(false);
     }
   }
 }

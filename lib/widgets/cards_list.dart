@@ -22,6 +22,7 @@ import '../components/my_text.dart';
 import '../models/card_data.dart';
 import '../screens/add_card.dart';
 import '../screens/scan_image.dart';
+import '../utils/shared_variable.dart';
 
 class CardsList extends StatelessWidget {
   const CardsList({Key? key}) : super(key: key);
@@ -118,9 +119,12 @@ class CardsList extends StatelessWidget {
                                               'يوجد مشكله بالصوره اعد التقاط الصوره');
                                           Get.offAndToNamed(Home.id);
                                           // massage("good luck", context);
-                                           //Alert(context: context, title: "RFLUTTER", desc: "Flutter is awesome.").show();
+                                          //Alert(context: context, title: "RFLUTTER", desc: "Flutter is awesome.").show();
                                           print("no data found is Empty");
                                         }
+                                      } else {
+                                        showRecaptureSnackBar(
+                                            'تعذر الاتصال بالانترنت');
                                       }
                                       //else  {cardController.isLoading = false;}  by m_gomaa
                                     }),
@@ -207,6 +211,7 @@ class CardsList extends StatelessWidget {
     String backImageName = card.backImagePath!.split('/').last;
     Uri url = Uri.parse('https://41.218.156.154/reader/api');
     var request = http.MultipartRequest('POST', url);
+
     //============================================================
     var frontImage = _createFormFileFromStream(
         jsonKey: 'front_image',
