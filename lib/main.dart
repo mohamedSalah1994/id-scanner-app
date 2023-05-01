@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:id_scanner/screens/add_card.dart';
 import 'package:id_scanner/screens/dynamic_form.dart';
 import 'package:id_scanner/screens/edit_card.dart';
@@ -34,9 +35,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+     
+      // theme: ThemeData(
+      //   textTheme: GoogleFonts.cairoTextTheme()
+      // ),
       debugShowCheckedModeBanner: false,
       initialBinding: AppBindings(),
       initialRoute: Welcome.id,
+      textDirection: TextDirection.rtl,
       getPages: [
         GetPage(name: Welcome.id, page: () => const Welcome()),
         GetPage(name: Login.id, page: () => const Login()),

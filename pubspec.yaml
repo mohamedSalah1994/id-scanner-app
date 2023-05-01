@@ -57,6 +57,7 @@ dependencies:
   fluttertoast: ^8.1.1
   device_info_plus: ^8.0.0
   edge_detection: ^1.0.9
+  google_fonts: ^4.0.4
 
 
 

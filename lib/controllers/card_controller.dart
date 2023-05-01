@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:external_path/external_path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_identifier/flutter_device_identifier.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:get/get.dart';
 import 'package:id_scanner/enums/event_enum.dart';
@@ -20,7 +18,6 @@ import '../components/show_snack_bar.dart';
 import '../models/card_data.dart';
 import '../models/events_model.dart';
 import '../screens/home.dart';
-import '../screens/loginAuth.dart';
 import '../utils/db_helper.dart';
 import '../utils/utils.dart';
 import 'location_controller.dart';
@@ -118,7 +115,7 @@ class CardController extends GetxController {
         CardModel card = CardModel();
 
         card.id = '$user_id-${DateTime.now()}';
-        card.event = selected!.eventName;
+        card.event = selected!.eventId;
         card.user_id = user_id;
         card.frontImagePath = '$extStoragePath/$frontImageName';
         card.backImagePath = '$extStoragePath/$backImageName';
@@ -128,12 +125,13 @@ class CardController extends GetxController {
         card.deviceSerialNumber = await getSerialNumber();
 
         await dbHelper.addCard(card);
+        
 
         isLoading = false;
 
         Get.toNamed(Home.id);
         resetAttributes();
-        print(card.toMap());
+        
       } else {
         isLoading = false;
         showLocationAlertSnackBar('Open Location Service.');
@@ -278,7 +276,7 @@ class CardController extends GetxController {
     };
     request.fields.addAll(data);
 
-    print(data);
+    
 
     //============================================================
     //============================================================
@@ -288,7 +286,7 @@ class CardController extends GetxController {
       var responseData = json.decode(utf8.decode(responseDataAsBytes));
 
       massage(responseData, context);
-      print(responseData);
+    Get.offAllNamed(Home.id);
       return responseData;
     } catch (e) {
       return {};

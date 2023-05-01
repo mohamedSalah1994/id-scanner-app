@@ -28,8 +28,8 @@ class ImgStandarads extends StatelessWidget {
                   width: 100.0,
                   height: 100.0,
                 ),
-                Text('التأكد من التقاط صورة البطاقة في اضاءه واضحه'),
-                SizedBox(
+                const Text('التأكد من التقاط صورة البطاقة في اضاءه واضحه'),
+                const SizedBox(
                   height: 40.0,
                 ),
                 Image.asset(
@@ -37,8 +37,8 @@ class ImgStandarads extends StatelessWidget {
                   width: 100.0,
                   height: 100.0,
                 ),
-                Text('التأكد من ان تكون جميع حدود صوره البطاقة واضحه بالكامل'),
-                SizedBox(
+                const Text('التأكد من ان تكون جميع حدود صوره البطاقة واضحه بالكامل'),
+                const SizedBox(
                   height: 40.0,
                 ),
                 Image.asset(
@@ -46,7 +46,7 @@ class ImgStandarads extends StatelessWidget {
                   width: 100.0,
                   height: 100.0,
                 ),
-                Text('يجب ان لايوجد انعكاس للضوء على الصوره'),
+                const Text('يجب ان لايوجد انعكاس للضوء على الصوره'),
               ],
             ),
           ),

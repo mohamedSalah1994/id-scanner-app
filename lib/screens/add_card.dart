@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:id_scanner/components/validation/validation_error.dart';
 import 'package:id_scanner/controllers/card_controller.dart';
-import 'package:id_scanner/enums/event_enum.dart';
 import 'package:id_scanner/models/events_model.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
@@ -14,7 +13,6 @@ import '../components/custom_widgets.dart';
 import '../components/input_filed_decoration.dart';
 import '../components/my_text.dart';
 import '../components/rounded_button.dart';
-import '../models/events_data.dart';
 
 class AddCard extends StatefulWidget {
   const AddCard({Key? key}) : super(key: key);
@@ -219,7 +217,7 @@ class _AddCardState extends State<AddCard> {
                     RoundedButton(
                       color: AppData.mainColor,
                       child: const MyText(
-                          text: 'إنشاء', color: Colors.white, fontSize: 18),
+                          text: 'إنشاء', color: Colors.white, fontSize: 18 ,),
                       onPressed: () => controller.createCard(),
                     ),
                     const SizedBox(height: 15),

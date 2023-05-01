@@ -5,7 +5,7 @@ import 'package:id_scanner/controllers/internet_connection_controller.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../widgets/cards_list.dart';
-import 'add_card.dart';
+
 import 'dynamic_form.dart';
 import 'img_standards.dart';
 

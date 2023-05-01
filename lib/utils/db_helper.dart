@@ -33,7 +33,7 @@ class DBHelper {
       );
       return _db;
     } catch (e) {
-      print(e);
+     
       return null;
     }
   }

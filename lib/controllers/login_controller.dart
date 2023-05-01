@@ -1,12 +1,10 @@
-import 'dart:convert';
+
 // import 'dart:html';
 
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:id_scanner/screens/loginAuth.dart';
 import 'package:id_scanner/screens/welcome.dart';
@@ -14,13 +12,13 @@ import 'package:id_scanner/screens/welcome.dart';
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 
-import '../screens/add_card.dart';
 import '../screens/home.dart';
-import '../screens/login.dart';
+
 import '../utils/shared_variable.dart';
 
 class LoginController extends GetxController {
   var isPaawordHidden = true.obs;
+  // ignore: prefer_typing_uninitialized_variables
   var deviceId;
   Future getDeviceInfo() async {
     DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
@@ -50,7 +48,7 @@ class LoginController extends GetxController {
       "DeviceId": deviceId
     };
     request.fields.addAll(data);
-    print(data);
+    
 
     //============================================================
     //============================================================
@@ -61,13 +59,13 @@ class LoginController extends GetxController {
       // print(responseData);
 
       var data = await http.Response.fromStream(response);
-      print(data.body);
+     
 
       if (data.statusCode == 201) {
         CacheHelper.saveData(key: "token", value: data.body).then((value) {
           token = CacheHelper.getData(key: "token");
 
-          print(token);
+          
 
           Get.offAllNamed(Home.id);
         });
@@ -77,7 +75,7 @@ class LoginController extends GetxController {
 
       return data;
     } catch (e) {
-      print(e.toString());
+     
       return {};
     }
   }
@@ -107,7 +105,7 @@ class LoginController extends GetxController {
       //
       // });
       var data = await http.Response.fromStream(response);
-      print(data.body);
+     
 
       if (data.statusCode == 201) {
         CacheHelper.removeData(key: "token").then((value) {
@@ -120,7 +118,7 @@ class LoginController extends GetxController {
 
       return data;
     } catch (e) {
-      print(e.toString());
+      
       return {};
     }
   }

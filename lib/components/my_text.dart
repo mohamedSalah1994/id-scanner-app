@@ -9,6 +9,7 @@ class MyText extends StatelessWidget {
   final Alignment? containerAlignment;
   final TextAlign? textAlign;
   final TextStyle? textStyle;
+  
 
   const MyText({
     Key? key,

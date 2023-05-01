@@ -438,6 +438,8 @@ class _ScanImageState extends State<ScanImage> {
                           //birthPlaceController.text,
                           husController.text,
                           changedList);
+
+                          
                     },
                     child: Container(
                       color: Colors.black,

@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -14,15 +13,12 @@ import 'package:id_scanner/controllers/internet_connection_controller.dart';
 import 'package:id_scanner/models/card_model.dart';
 import 'package:id_scanner/screens/edit_card.dart';
 import 'package:id_scanner/screens/home.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:fluttertoast/fluttertoast.dart'; //AT 15_11_2022
 
 import '../app_data.dart';
 import '../components/my_text.dart';
 import '../models/card_data.dart';
-import '../screens/add_card.dart';
+
 import '../screens/scan_image.dart';
-import '../utils/shared_variable.dart';
 
 class CardsList extends StatelessWidget {
   const CardsList({Key? key}) : super(key: key);
@@ -221,14 +217,23 @@ class CardsList extends StatelessWidget {
         jsonKey: 'back_image',
         filePath: card.backImagePath,
         fileName: backImageName);
+    print({
+      "event": card.event,
+      "user_id": card.user_id,
+    });
+    request.fields.addAll({
+      "event": card.event.toString(),
+      "user_id": card.user_id.toString(),
+    });
     request.files.add(frontImage);
     request.files.add(backImage);
+    // CardModel card1 = Card();
     //============================================================
     try {
       var response = await request.send();
       var responseDataAsBytes = await response.stream.toBytes();
       var responseData = json.decode(utf8.decode(responseDataAsBytes));
-      print(responseData);
+
       if (response.statusCode == 400) {
         print("retuen null 400");
         return {};
