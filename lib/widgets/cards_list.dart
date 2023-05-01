@@ -175,21 +175,21 @@ class CardsList extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Positioned(
-                          bottom: 50,
-                          right: 10,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                color: Colors.black54),
-                            child: IconButton(
-                              visualDensity: VisualDensity.compact,
-                              icon: const Icon(Icons.edit, color: Colors.white),
-                              onPressed: () =>
-                                  Get.toNamed(EditCard.id, arguments: card),
-                            ),
-                          ),
-                        ),
+                        // Positioned(
+                        //   bottom: 50,
+                        //   right: 10,
+                        //   child: Container(
+                        //     decoration: BoxDecoration(
+                        //         borderRadius: BorderRadius.circular(30),
+                        //         color: Colors.black54),
+                        //     child: IconButton(
+                        //       visualDensity: VisualDensity.compact,
+                        //       icon: const Icon(Icons.edit, color: Colors.white),
+                        //       onPressed: () =>
+                        //           Get.toNamed(EditCard.id, arguments: card),
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                   );

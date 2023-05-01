@@ -36,9 +36,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
      
-      // theme: ThemeData(
-      //   textTheme: GoogleFonts.cairoTextTheme()
-      // ),
+      theme: ThemeData(
+        textTheme: GoogleFonts.cairoTextTheme()
+      ),
       debugShowCheckedModeBanner: false,
       initialBinding: AppBindings(),
       initialRoute: Welcome.id,

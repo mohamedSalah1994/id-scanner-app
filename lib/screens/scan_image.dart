@@ -77,7 +77,7 @@ class _ScanImageState extends State<ScanImage> {
                 padding: const EdgeInsets.all(10),
                 children: [
                   Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 8),
+                    margin: const EdgeInsets.symmetric(horizontal: 8 , vertical: 8),
                     height: 150,
                     child: Row(
                       children: [
@@ -336,14 +336,14 @@ class _ScanImageState extends State<ScanImage> {
                             ),
                           ),
                         ]),
-                        SizedBox(
+                        const SizedBox(
                           height: 20.0,
                         ),
                         // hus
                         husController.text == ""
-                            ? SizedBox()
+                            ? const SizedBox()
                             : Row(children: [
-                                SizedBox(
+                                const SizedBox(
                                   width: 70.0,
                                   child: Text(
                                     'اسم الزوج :',
@@ -358,7 +358,7 @@ class _ScanImageState extends State<ScanImage> {
                                       changedList[5] = true;
                                     },
                                     controller: husController,
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                       hintStyle: TextStyle(color: Colors.blue),
                                       filled: true,
                                       fillColor: Colors.white,
@@ -444,12 +444,13 @@ class _ScanImageState extends State<ScanImage> {
                     child: Container(
                       color: Colors.black,
                       padding: const EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 10),
+                          vertical: 10, horizontal: 20),
                       child: const Text(
                         'حفظ البيانات',
                         style: TextStyle(color: Colors.white, fontSize: 20.0),
                       ),
                     ),
+                    
                   ),
                 ],
               ),

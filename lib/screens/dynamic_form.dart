@@ -184,7 +184,7 @@ class _DynamicFromState extends State<DynamicFrom> {
                     const SizedBox(height: 40),
                     RoundedButton(
                       child: const Text(
-                        'Submit',
+                        'حفظ',
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                       hasBorder: true,
@@ -209,11 +209,11 @@ class _DynamicFromState extends State<DynamicFrom> {
                       builder: (controller) {
                         return RoundedButton(
                           child: const Text(
-                            'Sign Out',
+                            'تسجيل الخروج',
                             style: TextStyle(color: Colors.white, fontSize: 18),
                           ),
                           hasBorder: false,
-                          color: Colors.grey,
+                          color: Colors.red,
                           onPressed: () {
                             controller.sendLogOut(context);
                           },

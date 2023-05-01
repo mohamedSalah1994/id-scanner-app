@@ -11,11 +11,11 @@ Column logoText() {
         children: [
           Text(
             'ID ',
-            style: TextStyle(color: AppData.mainColor, fontSize: 34, fontWeight: FontWeight.bold),
+            style: TextStyle(color: AppData.mainColor, fontSize: 50, fontWeight: FontWeight.bold),
           ),
           Text(
             'Scanner',
-            style: TextStyle(color: AppData.primaryFontColor, fontSize: 34, fontWeight: FontWeight.bold),
+            style: TextStyle(color: AppData.primaryFontColor, fontSize: 50, fontWeight: FontWeight.bold),
           ),
         ],
       ),
@@ -53,5 +53,6 @@ MyText inputLabel(String text) {
     containerAlignment: Alignment.centerRight,
     fontSize: 17,
     fontWeight: FontWeight.w500,
+    
   );
 }

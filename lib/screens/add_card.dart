@@ -217,7 +217,7 @@ class _AddCardState extends State<AddCard> {
                     RoundedButton(
                       color: AppData.mainColor,
                       child: const MyText(
-                          text: 'إنشاء', color: Colors.white, fontSize: 18 ,),
+                          text: 'إنشاء', color: Colors.white, fontSize: 20),
                       onPressed: () => controller.createCard(),
                     ),
                     const SizedBox(height: 15),

@@ -9,7 +9,6 @@ class MyText extends StatelessWidget {
   final Alignment? containerAlignment;
   final TextAlign? textAlign;
   final TextStyle? textStyle;
-  
 
   const MyText({
     Key? key,
@@ -35,7 +34,7 @@ class MyText extends StatelessWidget {
               color: color ?? Colors.black,
               fontWeight: fontWeight,
               fontSize: fontSize,
-              fontFamily: 'Metropolis',
+              
             ),
         textAlign: textAlign ?? TextAlign.center,
       ),

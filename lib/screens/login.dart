@@ -23,10 +23,11 @@ class Login extends StatelessWidget {
             child: ListView(
               shrinkWrap: true,
               children: [
-                titleText('تسجيل الدخول' , fontSize: 40),
+               
+               logoText(),
 
                 const SizedBox(height: 17),
-                smallText('Add your details to login'),
+                
                 const SizedBox(height: 35),
                 TextField(
                   decoration:  InputDecoration(
