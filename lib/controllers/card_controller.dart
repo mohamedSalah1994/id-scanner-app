@@ -92,7 +92,7 @@ class CardController extends GetxController {
         await file.delete();
       }
     } catch (e) {
-      print("File doesn't exist.");
+      //
     }
   }
 
@@ -317,13 +317,13 @@ class CardController extends GetxController {
         var data = utf8.decode(response.bodyBytes);
         var result = jsonDecode(data);
         eventObject = EventModel.fromJson(result);
-        print(result);
+       
       } else {
         ///error
       }
     } catch (e) {
       log('Error while getting data is $e');
-      print('Error while getting data is $e');
+      
     } finally {
       // changeState(false);
     }

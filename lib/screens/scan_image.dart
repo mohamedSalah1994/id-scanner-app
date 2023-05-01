@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:id_scanner/controllers/card_controller.dart';
 import 'package:id_scanner/utils/shared_variable.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 import '../models/card_data.dart';
 import '../models/card_model.dart';
@@ -105,36 +104,33 @@ class _ScanImageState extends State<ScanImage> {
                   ),
                   const SizedBox(height: 20),
                   Container(
-                    padding: EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Column(
                       children: [
                         // national_id
-                        Container(
-                          //national_id
-                          child: Row(children: [
-                            SizedBox(
-                              width: 120.0,
-                              child: Text(
-                                'الرقم القومى :',
-                                style: TextStyle(fontSize: 18.0),
-                              ),
+                        Row(children: [
+                          const SizedBox(
+                            width: 120.0,
+                            child: Text(
+                              'الرقم القومى :',
+                              style: TextStyle(fontSize: 18.0),
                             ),
+                          ),
 
-                            // Optional
-                            Expanded(
-                              child: Text(
-                                '${cardData.nationalId}',
-                                style: TextStyle(fontSize: 18.0),
-                              ),
+                          // Optional
+                          Expanded(
+                            child: Text(
+                              '${cardData.nationalId}',
+                              style: const TextStyle(fontSize: 18.0),
                             ),
-                          ]),
-                        ),
-                        SizedBox(
+                          ),
+                        ]),
+                        const SizedBox(
                           height: 30.0,
                         ),
                         //name
                         Row(children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 70.0,
                             child: Text(
                               'الإسم :',
@@ -146,7 +142,7 @@ class _ScanImageState extends State<ScanImage> {
                           Expanded(
                               child: TextField(
                             controller: nameController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               hintStyle: TextStyle(color: Colors.blue),
                               filled: true,
                               fillColor: Colors.white,
@@ -157,12 +153,12 @@ class _ScanImageState extends State<ScanImage> {
                             },
                           )),
                         ]),
-                        SizedBox(
+                        const SizedBox(
                           height: 20.0,
                         ),
                         //address
                         Row(children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 70.0,
                             child: Text(
                               'العنوان :',
@@ -174,7 +170,7 @@ class _ScanImageState extends State<ScanImage> {
                           Expanded(
                             child: TextField(
                               controller: addressController,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 hintStyle: TextStyle(color: Colors.blue),
                                 filled: true,
                                 fillColor: Colors.white,
@@ -186,12 +182,12 @@ class _ScanImageState extends State<ScanImage> {
                             ),
                           ),
                         ]),
-                        SizedBox(
+                        const SizedBox(
                           height: 20.0,
                         ),
                         // job
                         Row(children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 70.0,
                             child: Text(
                               'الوظيفة :',
@@ -203,7 +199,7 @@ class _ScanImageState extends State<ScanImage> {
                           Expanded(
                             child: TextField(
                               controller: jobController,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 hintStyle: TextStyle(color: Colors.blue),
                                 filled: true,
                                 fillColor: Colors.white,
@@ -215,12 +211,12 @@ class _ScanImageState extends State<ScanImage> {
                             ),
                           ),
                         ]),
-                        SizedBox(
+                        const SizedBox(
                           height: 20.0,
                         ),
                         // gender
                         Row(children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 70.0,
                             child: Text(
                               'النوع :',
@@ -232,16 +228,16 @@ class _ScanImageState extends State<ScanImage> {
                           Expanded(
                             child: Text(
                               '${cardData.gender}',
-                              style: TextStyle(fontSize: 18.0),
+                              style: const TextStyle(fontSize: 18.0),
                             ),
                           ),
                         ]),
-                        SizedBox(
+                        const SizedBox(
                           height: 20.0,
                         ),
                         // religion
                         Row(children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 70.0,
                             child: Text(
                               'الديانة :',
@@ -253,7 +249,7 @@ class _ScanImageState extends State<ScanImage> {
                           Expanded(
                             child: TextField(
                               controller: religionController,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 hintStyle: TextStyle(color: Colors.blue),
                                 filled: true,
                                 fillColor: Colors.white,
@@ -265,12 +261,12 @@ class _ScanImageState extends State<ScanImage> {
                             ),
                           ),
                         ]),
-                        SizedBox(
+                        const SizedBox(
                           height: 20.0,
                         ),
                         // marital_status
                         Row(children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 70.0,
                             child: Text(
                               'الحالة الإجتماعية :',
@@ -282,7 +278,7 @@ class _ScanImageState extends State<ScanImage> {
                           Expanded(
                             child: TextField(
                               controller: maritalStatusController,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 hintStyle: TextStyle(color: Colors.blue),
                                 filled: true,
                                 fillColor: Colors.white,
@@ -294,12 +290,12 @@ class _ScanImageState extends State<ScanImage> {
                             ),
                           ),
                         ]),
-                        SizedBox(
+                        const SizedBox(
                           height: 25.0,
                         ),
                         // birthdate
                         Row(children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 120.0,
                             child: Text(
                               'تاريخ الميلاد :',
@@ -311,16 +307,16 @@ class _ScanImageState extends State<ScanImage> {
                           Expanded(
                             child: Text(
                               '${cardData.birthdate}',
-                              style: TextStyle(fontSize: 18.0),
+                              style: const TextStyle(fontSize: 18.0),
                             ),
                           ),
                         ]),
-                        SizedBox(
+                        const SizedBox(
                           height: 25.0,
                         ),
                         // birth_place
                         Row(children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 120.0,
                             child: Text(
                               'محل الميلاد :',
@@ -332,7 +328,7 @@ class _ScanImageState extends State<ScanImage> {
                           Expanded(
                             child: Text(
                               '${cardData.birthPlace}',
-                              style: TextStyle(fontSize: 18.0),
+                              style: const TextStyle(fontSize: 18.0),
                             ),
                           ),
                         ]),
@@ -461,22 +457,6 @@ class _ScanImageState extends State<ScanImage> {
     );
   }
 
-  Widget _identityField({required String fName, required String? fValue}) {
-    fieldId++;
-    bool isOdd = (fieldId % 2) == 1;
-    return Container(
-      color: isOdd ? Colors.black : Colors.white,
-      margin: const EdgeInsets.symmetric(horizontal: 8),
-      child: ListTile(
-        leading: Text('$fName:',
-            style: TextStyle(
-                color: isOdd ? Colors.white : Colors.black, fontSize: 18)),
-        title: Text(fValue.toString(),
-            style: TextStyle(color: isOdd ? Colors.white : Colors.blue)),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-      ),
-    );
-  }
 
   Widget _getImage(String encodedImage) {
     Uint8List decodedImage = base64Decode(encodedImage);

@@ -2,8 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
+
 import 'package:id_scanner/components/rounded_button.dart';
 
 import '../controllers/login_controller.dart';
@@ -155,12 +154,14 @@ class _DynamicFromState extends State<DynamicFrom> {
           future: DefaultAssetBundle.of(context)
               .loadString("assets/form_fields.json"),
           builder: (context, AsyncSnapshot snapshot) {
-            if (snapshot.hasError)
+            if (snapshot.hasError) {
               return const Text('Error in loading form data.');
+            }
             if (snapshot.data != null) {
               final jsonResult = jsonDecode(snapshot.data);
-              if (jsonResult.isEmpty)
+              if (jsonResult.isEmpty) {
                 return const Text('There is no data for the form.');
+              }
               return Container(
                 color: Colors.grey.shade50,
                 padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -190,18 +191,7 @@ class _DynamicFromState extends State<DynamicFrom> {
                       hasBorder: true,
                       color: Colors.lightGreen,
                       onPressed: () {
-                        final formData = {
-                          ..._myFieldsValues,
-                          ..._mySelectValues,
-                          ..._myRadioValues
-                        };
-                        print('======================');
-                        print(_mySelectValues);
-                        print(_myRadioValuesIds);
-                        print(_myRadioValues);
-                        print(_myFieldsValues);
-                        print(formData);
-                        print('======================');
+
                       },
                     ),
                     const SizedBox(height: 40),

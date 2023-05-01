@@ -11,7 +11,7 @@ import 'package:id_scanner/components/show_snack_bar.dart';
 import 'package:id_scanner/controllers/card_controller.dart';
 import 'package:id_scanner/controllers/internet_connection_controller.dart';
 import 'package:id_scanner/models/card_model.dart';
-import 'package:id_scanner/screens/edit_card.dart';
+
 import 'package:id_scanner/screens/home.dart';
 
 import '../app_data.dart';
@@ -116,7 +116,7 @@ class CardsList extends StatelessWidget {
                                           Get.offAndToNamed(Home.id);
                                           // massage("good luck", context);
                                           //Alert(context: context, title: "RFLUTTER", desc: "Flutter is awesome.").show();
-                                          print("no data found is Empty");
+                                         
                                         }
                                       } else {
                                         showRecaptureSnackBar(
@@ -217,10 +217,7 @@ class CardsList extends StatelessWidget {
         jsonKey: 'back_image',
         filePath: card.backImagePath,
         fileName: backImageName);
-    print({
-      "event": card.event,
-      "user_id": card.user_id,
-    });
+
     request.fields.addAll({
       "event": card.event.toString(),
       "user_id": card.user_id.toString(),
@@ -235,13 +232,13 @@ class CardsList extends StatelessWidget {
       var responseData = json.decode(utf8.decode(responseDataAsBytes));
 
       if (response.statusCode == 400) {
-        print("retuen null 400");
+        
         return {};
       } else {
         return responseData;
       }
     } catch (e) {
-      print(e.toString());
+      
       return {};
     }
   }
@@ -259,16 +256,4 @@ class CardsList extends StatelessWidget {
     );
   }
 
-  Future<http.MultipartFile> _createFormFileFromBytes({
-    required String jsonKey,
-    required String? filePath,
-    required String fileName,
-  }) async {
-    /// load file from assets
-    return http.MultipartFile.fromBytes(
-      jsonKey,
-      (await rootBundle.load('images/omar.jpeg')).buffer.asUint8List(),
-      filename: fileName,
-    );
-  }
 }

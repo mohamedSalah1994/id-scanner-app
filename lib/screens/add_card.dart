@@ -93,7 +93,7 @@ class _AddCardState extends State<AddCard> {
                           inputLabel('النشاط'),
                           const SizedBox(height: 5),
                           controller.loading
-                              ? Center(child: CircularProgressIndicator())
+                              ? const Center(child: CircularProgressIndicator())
                               : DropdownButtonFormField2(
                                   decoration: kAddCardInputFieldDecoration,
                                   isExpanded: true,
@@ -119,7 +119,7 @@ class _AddCardState extends State<AddCard> {
                                   }).toList(),
                                   onChanged: (EventDatum? newValue) {
                                     controller.selected = newValue;
-                                    print(controller.selected);
+                                    
                                   },
                                   onSaved: (value) {}),
                           const SizedBox(height: 20),

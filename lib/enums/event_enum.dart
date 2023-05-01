@@ -1,6 +1,4 @@
-import 'dart:convert';
 
-import 'package:id_scanner/models/events_model.dart';
 
 enum Event { event1, event2, event3, event4, event5 }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import '';
+
+
 import 'add_card.dart';
 
 class ImgStandarads extends StatelessWidget {
@@ -13,7 +13,7 @@ class ImgStandarads extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text('معايير الصوره'),
+        title: const Text('معايير الصوره'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
