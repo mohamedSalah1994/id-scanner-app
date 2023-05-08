@@ -25,7 +25,7 @@ class LoginController extends GetxController {
     if (Platform.isAndroid) {
       AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
       deviceId = androidInfo.id;
-      print(deviceId);
+      
     } else {
       IosDeviceInfo ios = await deviceInfoPlugin.iosInfo;
       deviceId = ios.identifierForVendor;

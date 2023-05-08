@@ -2,7 +2,8 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:flutter/cupertino.dart';
+
+// ignore: library_prefixes
 import 'package:image/image.dart' as IMG;
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
@@ -32,11 +33,7 @@ class Utils {
   }
 
   static Future<void> getImageSize(File? image) async {
-    print('======================');
-    var decodedImage = await decodeImageFromList(image!.readAsBytesSync());
-    print(decodedImage.width);
-    print(decodedImage.height);
-    print('======================');
+    
   }
 
   static Future<File?> resizeImage(Uint8List data, int targetWidth, int targetHeight) async {

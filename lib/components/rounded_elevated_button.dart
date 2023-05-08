@@ -28,9 +28,8 @@ class RoundedElevatedButton extends StatelessWidget {
                     await controller.checkConnection();
                   },
             style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0), backgroundColor: controller.online ? Colors.black : Colors.grey.shade400,
               shape: const StadiumBorder(),
-              primary: controller.online ? Colors.black : Colors.grey.shade400,
             ),
             child: Text(
               text,

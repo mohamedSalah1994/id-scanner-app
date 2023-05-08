@@ -44,7 +44,7 @@ class _HomeState extends State<Home> {
           ),
           body: ModalProgressHUD(
             inAsyncCall: controller.isLoading,
-            child: CardsList(),
+            child: const CardsList(),
           ),
           floatingActionButton: SizedBox(
             width: 60,
