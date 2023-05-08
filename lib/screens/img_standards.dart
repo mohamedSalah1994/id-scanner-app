@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 import 'add_card.dart';
 
 class ImgStandarads extends StatelessWidget {
@@ -15,43 +14,42 @@ class ImgStandarads extends StatelessWidget {
         backgroundColor: Colors.black,
         title: const Text('معايير الصوره'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset(
-                  'images/flashlight.png',
-                  width: 100.0,
-                  height: 100.0,
-                ),
-                const Text('التأكد من التقاط صورة البطاقة في اضاءه واضحه'),
-                const SizedBox(
-                  height: 40.0,
-                ),
-                Image.asset(
-                  'images/crop-tool.png',
-                  width: 100.0,
-                  height: 100.0,
-                ),
-                const Text('التأكد من ان تكون جميع حدود صوره البطاقة واضحه بالكامل'),
-                const SizedBox(
-                  height: 40.0,
-                ),
-                Image.asset(
-                  'images/prism.png',
-                  width: 100.0,
-                  height: 100.0,
-                ),
-                const Text('يجب ان لايوجد انعكاس للضوء على الصوره'),
-              ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Spacer(),
+            Image.asset(
+              'images/flashlight.png',
+              width: 100.0,
+              height: 100.0,
             ),
-          ),
+            const Text('التأكد من التقاط صورة البطاقة في اضاءه واضحه'),
+            const SizedBox(
+              height: 40.0,
+            ),
+            Image.asset(
+              'images/crop-tool.png',
+              width: 100.0,
+              height: 100.0,
+            ),
+            const Text(
+                'التأكد من ان تكون جميع حدود صوره البطاقة واضحه بالكامل'),
+            const SizedBox(
+              height: 40.0,
+            ),
+            Image.asset(
+              'images/prism.png',
+              width: 100.0,
+              height: 100.0,
+            ),
+            const Text('يجب ان لايوجد انعكاس للضوء على الصوره'),
+            const Spacer(),
+            const Spacer()
+          ],
         ),
       ),
+     
       floatingActionButton: SizedBox(
         width: 60,
         height: 60,
