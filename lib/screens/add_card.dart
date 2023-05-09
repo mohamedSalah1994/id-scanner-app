@@ -147,6 +147,7 @@ class _AddCardState extends State<AddCard> {
                                   : Container(),
                             ),
                           ),
+                          
                           ValidationError(
                               errorMessage: 'أدخل وجه البطاقة',
                               visible: controller.frontImageName!.isEmpty),

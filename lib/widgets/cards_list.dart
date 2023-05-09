@@ -111,16 +111,15 @@ class CardsList extends StatelessWidget {
                                         } else {
                                           cardController.isLoading = false;
 
-                                          showRecaptureSnackBar(
+                                          showRecaptureSnackBar('تنبيه',
                                               'يوجد مشكله بالصوره اعد التقاط الصوره');
                                           Get.offAndToNamed(Home.id);
                                           // massage("good luck", context);
                                           //Alert(context: context, title: "RFLUTTER", desc: "Flutter is awesome.").show();
-                                         
                                         }
                                       } else {
                                         showRecaptureSnackBar(
-                                            'تعذر الاتصال بالانترنت');
+                                            'تنبيه', 'تعذر الاتصال بالانترنت');
                                       }
                                       //else  {cardController.isLoading = false;}  by m_gomaa
                                     }),
@@ -157,7 +156,7 @@ class CardsList extends StatelessWidget {
                                   color: Colors.white),
                               onPressed: () async {
                                 await kAlertDialog(
-                                  content: 'Delete this card?',
+                                  content: 'هل أنت متأكد من حذف البطاقه ؟',
                                   onConfirm: () async {
                                     cardController.isLoading = true;
                                     int count = await cardController
@@ -166,7 +165,9 @@ class CardsList extends StatelessWidget {
                                     if (count == 1) {
                                       cardController.isLoading = false;
                                       showSuccessSnackBar(
-                                          'Card is deleted successfully.');
+                                        'حذف البطاقه',
+                                        'تم الحذف البطاقه بنجاح',
+                                      );
                                       Get.offAndToNamed(Home.id);
                                     }
                                   },
@@ -232,13 +233,11 @@ class CardsList extends StatelessWidget {
       var responseData = json.decode(utf8.decode(responseDataAsBytes));
 
       if (response.statusCode == 400) {
-        
         return {};
       } else {
         return responseData;
       }
     } catch (e) {
-      
       return {};
     }
   }
@@ -255,5 +254,4 @@ class CardsList extends StatelessWidget {
       filename: fileName,
     );
   }
-
 }

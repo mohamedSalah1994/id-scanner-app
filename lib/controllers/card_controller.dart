@@ -125,13 +125,11 @@ class CardController extends GetxController {
         card.deviceSerialNumber = await getSerialNumber();
 
         await dbHelper.addCard(card);
-        
 
         isLoading = false;
 
         Get.toNamed(Home.id);
         resetAttributes();
-        
       } else {
         isLoading = false;
         showLocationAlertSnackBar('Open Location Service.');
@@ -276,8 +274,6 @@ class CardController extends GetxController {
     };
     request.fields.addAll(data);
 
-    
-
     //============================================================
     //============================================================
     try {
@@ -285,8 +281,9 @@ class CardController extends GetxController {
       var responseDataAsBytes = await response.stream.toBytes();
       var responseData = json.decode(utf8.decode(responseDataAsBytes));
 
-      massage(responseData, context);
-    Get.offAllNamed(Home.id);
+      
+      showSuccessSnackBar('حفظ البيانات', responseData);
+      Get.offAllNamed(Home.id);
       return responseData;
     } catch (e) {
       return {};
@@ -317,20 +314,18 @@ class CardController extends GetxController {
         var data = utf8.decode(response.bodyBytes);
         var result = jsonDecode(data);
         eventObject = EventModel.fromJson(result);
-       
       } else {
         ///error
       }
     } catch (e) {
       log('Error while getting data is $e');
-      
     } finally {
       // changeState(false);
     }
   }
 }
 
-void massage(String m, BuildContext context) {
+void messageAlert(String m, BuildContext context) {
   var snackBar = SnackBar(
     /// need to set following properties for best effect of awesome_snackbar_content
     elevation: 0,

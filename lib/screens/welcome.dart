@@ -60,9 +60,12 @@ class _WelcomeState extends State<Welcome> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const [
-                          Text('إبدأ الأن',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 18)),
+                          Padding(
+                            padding: EdgeInsets.all(12),
+                            child: Text('إبدأ الأن',
+                                style:
+                                    TextStyle(color: Colors.white, fontSize: 18)),
+                          ),
                           SizedBox(width: 50),
                           Icon(Icons.arrow_forward_outlined,
                               color: Colors.white, size: 24),

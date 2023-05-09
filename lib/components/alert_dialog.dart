@@ -6,21 +6,21 @@ import 'my_text.dart';
 Future<void> kAlertDialog({
   required String content,
   required Function() onConfirm,
-  String confirmText = 'Delete',
+  String confirmText = 'حذف',
 }) async {
   await Get.defaultDialog(
-    title: 'Alert!',
+    title: 'تنبيه',
     titlePadding: const EdgeInsets.symmetric(vertical: 15),
     contentPadding: const EdgeInsets.symmetric(horizontal: 20),
     content: MyText(text: content),
     cancel:
-        TextButton(onPressed: () => Get.back(), child: const Text('Cancel')),
+        TextButton(onPressed: () => Get.back(), child: const Text('رجوع')),
     confirm: TextButton(
       onPressed: () {
         onConfirm();
         Get.back();
       },
-      child: Text(confirmText),
+      child: Text(confirmText , style: TextStyle(color: Colors.red),),
     ),
   );
 }
