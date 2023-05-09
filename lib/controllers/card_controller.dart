@@ -314,11 +314,19 @@ class CardController extends GetxController {
         var data = utf8.decode(response.bodyBytes);
         var result = jsonDecode(data);
         eventObject = EventModel.fromJson(result);
+<<<<<<< HEAD
+=======
+       
+>>>>>>> d6f11fa26669e1a9db1b5c74f2f297b82504328d
       } else {
         ///error
       }
     } catch (e) {
       log('Error while getting data is $e');
+<<<<<<< HEAD
+=======
+      
+>>>>>>> d6f11fa26669e1a9db1b5c74f2f297b82504328d
     } finally {
       // changeState(false);
     }
