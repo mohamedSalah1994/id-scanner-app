@@ -116,10 +116,7 @@ class CardsList extends StatelessWidget {
                                           Get.offAndToNamed(Home.id);
                                           // massage("good luck", context);
                                           //Alert(context: context, title: "RFLUTTER", desc: "Flutter is awesome.").show();
-<<<<<<< HEAD
-=======
-                                         
->>>>>>> d6f11fa26669e1a9db1b5c74f2f297b82504328d
+
                                         }
                                       } else {
                                         showRecaptureSnackBar(
@@ -237,19 +234,13 @@ class CardsList extends StatelessWidget {
       var responseData = json.decode(utf8.decode(responseDataAsBytes));
 
       if (response.statusCode == 400) {
-<<<<<<< HEAD
-=======
-        
->>>>>>> d6f11fa26669e1a9db1b5c74f2f297b82504328d
+
         return {};
       } else {
         return responseData;
       }
     } catch (e) {
-<<<<<<< HEAD
-=======
       
->>>>>>> d6f11fa26669e1a9db1b5c74f2f297b82504328d
       return {};
     }
   }
@@ -266,8 +257,4 @@ class CardsList extends StatelessWidget {
       filename: fileName,
     );
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> d6f11fa26669e1a9db1b5c74f2f297b82504328d
 }
