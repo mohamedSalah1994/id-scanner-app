@@ -19,6 +19,7 @@ import 'package:id_scanner/utils/shared_variable.dart';
 
 import 'app_bindings.dart';
 
+
 void main() async {
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +28,7 @@ void main() async {
   token = CacheHelper.getData(key: "token");
 
   runApp(const MyApp());
+   
 }
 
 class MyApp extends StatelessWidget {

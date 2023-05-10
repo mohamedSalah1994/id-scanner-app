@@ -281,7 +281,6 @@ class CardController extends GetxController {
       var responseDataAsBytes = await response.stream.toBytes();
       var responseData = json.decode(utf8.decode(responseDataAsBytes));
 
-      
       showSuccessSnackBar('حفظ البيانات', responseData);
       Get.offAllNamed(Home.id);
       return responseData;
@@ -314,12 +313,12 @@ class CardController extends GetxController {
         var data = utf8.decode(response.bodyBytes);
         var result = jsonDecode(data);
         eventObject = EventModel.fromJson(result);
+        print(data);
 
         ///error
       }
     } catch (e) {
       log('Error while getting data is $e');
-
     } finally {
       // changeState(false);
     }
