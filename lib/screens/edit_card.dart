@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:id_scanner/controllers/card_controller.dart';
-import 'package:id_scanner/enums/event_enum.dart';
+
 import 'package:id_scanner/models/card_model.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
@@ -15,6 +15,7 @@ import '../components/custom_widgets.dart';
 import '../components/input_filed_decoration.dart';
 import '../components/my_text.dart';
 import '../components/rounded_button.dart';
+import '../models/events_model.dart';
 
 class EditCard extends StatefulWidget {
   const EditCard({Key? key}) : super(key: key);
@@ -87,27 +88,35 @@ class _EditCardState extends State<EditCard> {
                         children: [
                           inputLabel('النشاط'),
                           const SizedBox(height: 5),
-                          DropdownButtonFormField2(
-                            value: card.event == null ? null : getEvent(card.event.toString()),
-                            decoration: kAddCardInputFieldDecoration,
-                            isExpanded: true,
-                            icon: const Icon(Icons.keyboard_arrow_down),
-                            iconSize: 30,
-                            buttonHeight: 50,
-                            buttonPadding: const EdgeInsets.symmetric(horizontal: 10),
-                            dropdownDecoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
-                            items: events.map<DropdownMenuItem<Event>>((Event event) {
-                              return DropdownMenuItem<Event>(
-                                value: event,
-                                child: Text(
-                                  event.name.capitalize.toString(),
-                                  style: const TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (newValue) {},
-                            onSaved: (value) => controller.event = value as Event?,
-                          ),
+                          controller.loading
+                              ? const Center(child: CircularProgressIndicator())
+                              : DropdownButtonFormField2(
+                                  decoration: kAddCardInputFieldDecoration,
+                                  isExpanded: true,
+                                  icon: const Icon(Icons.keyboard_arrow_down),
+                                  iconSize: 30,
+                                  buttonHeight: 50,
+                                  buttonPadding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  dropdownDecoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15)),
+                                  items: controller.eventObject.data
+                                      .map<DropdownMenuItem<EventDatum>>(
+                                          (EventDatum event) {
+                                    return DropdownMenuItem<EventDatum>(
+                                      value: event,
+                                      child: Text(
+                                        event.eventName.capitalize.toString(),
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  onChanged: (EventDatum? newValue) {
+                                    controller.selected = newValue;
+                                  },
+                                  onSaved: (value) {}),
                           const SizedBox(height: 20),
                           inputLabel('وجه البطاقة'),
                           const SizedBox(height: 5),

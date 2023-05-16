@@ -9,56 +9,59 @@ class NetworkController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    _connectivity.onConnectivityChanged.listen(updateConnectionStatus);
     
   }
-
-  void _updateConnectionStatus(ConnectivityResult connectivityResult) {
+ConnectivityResult connectivityResult = ConnectivityResult.none;
+  updateConnectionStatus(ConnectivityResult connectivityResult) {
     if (connectivityResult == ConnectivityResult.wifi) {
-      
+      final CardController cardController = Get.find<CardController>();
+      cardController.getEvents();
       Get.rawSnackbar(
-          messageText: const Text('YOU ARE CONNECTED TO WIFI',
+          messageText: const Text('أنت الأن متصل بشبكة الواى فاى',
               style: TextStyle(color: Colors.white, fontSize: 14)),
           isDismissible: false,
           duration: const Duration(seconds: 3),
-          backgroundColor: Colors.green[400]!,
+          backgroundColor: Colors.black54,
           icon: const Icon(
             Icons.wifi,
             color: Colors.white,
             size: 35,
           ),
-          margin: EdgeInsets.zero,
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 30),
+          margin: const EdgeInsets.all(8),
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
           snackStyle: SnackStyle.GROUNDED);
     } else if (connectivityResult == ConnectivityResult.mobile) {
+      final CardController cardController = Get.find<CardController>();
+      cardController.getEvents();
       Get.rawSnackbar(
-          messageText: const Text('YOU ARE CONNECTED TO MODILE DATA',
+          messageText: const Text('أنت الأن متصل ببيانات الهاتف',
               style: TextStyle(color: Colors.white, fontSize: 14)),
           isDismissible: false,
           duration: const Duration(seconds: 3),
-          backgroundColor: Colors.green[400]!,
+          backgroundColor: Colors.black54,
           icon: const Icon(
             Icons.four_g_plus_mobiledata_rounded,
             color: Colors.white,
             size: 35,
           ),
-          margin: EdgeInsets.zero,
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 30),
+          margin: const EdgeInsets.all(8),
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
           snackStyle: SnackStyle.GROUNDED);
-    } else {
+    } else if (connectivityResult == ConnectivityResult.none) {
       Get.rawSnackbar(
-          messageText: const Text('PLEASE CONNECT TO THE INTERNET',
+          messageText: const Text('الرجاء الاتصال بالإنترنت',
               style: TextStyle(color: Colors.white, fontSize: 14)),
           isDismissible: false,
           duration: const Duration(seconds: 4),
-          backgroundColor: Colors.red[400]!,
+          backgroundColor: Colors.black54,
           icon: const Icon(
             Icons.wifi_off,
             color: Colors.white,
             size: 35,
           ),
-          margin: EdgeInsets.zero,
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 30),
+          margin: const EdgeInsets.all(8),
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
           snackStyle: SnackStyle.GROUNDED);
     }
   }

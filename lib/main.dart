@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'package:id_scanner/screens/add_card.dart';
 import 'package:id_scanner/screens/dynamic_form.dart';
 import 'package:id_scanner/screens/edit_card.dart';
@@ -16,8 +17,10 @@ import 'package:id_scanner/screens/scan_image.dart';
 import 'package:id_scanner/screens/sign_up.dart';
 import 'package:id_scanner/screens/welcome.dart';
 import 'package:id_scanner/utils/shared_variable.dart';
+import 'package:provider/provider.dart';
 
 import 'app_bindings.dart';
+import 'controllers/connectivity_provider.dart';
 
 
 void main() async {
@@ -27,7 +30,13 @@ void main() async {
 
   token = CacheHelper.getData(key: "token");
 
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ConactivityProvider()..initConnectivity(),
+      child: const MyApp(),
+    )
+  );
+  
    
 }
 

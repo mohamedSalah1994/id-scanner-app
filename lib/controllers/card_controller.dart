@@ -300,6 +300,7 @@ class CardController extends GetxController {
   EventDatum? selected;
 
   getEvents() async {
+    
     try {
       // changeState(true);
 

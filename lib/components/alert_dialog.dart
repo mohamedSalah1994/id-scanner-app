@@ -20,7 +20,7 @@ Future<void> kAlertDialog({
         onConfirm();
         Get.back();
       },
-      child: Text(confirmText , style: TextStyle(color: Colors.red),),
+      child: Text(confirmText , style: const TextStyle(color: Colors.red),),
     ),
   );
 }
