@@ -20,7 +20,7 @@ class InterNetWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset('images/no-internet-connection.jpg'),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   const Text(

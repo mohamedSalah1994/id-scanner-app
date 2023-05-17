@@ -3,6 +3,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:id_scanner/components/show_snack_bar.dart';
 import 'package:id_scanner/components/validation/validation_error.dart';
 import 'package:id_scanner/controllers/card_controller.dart';
 import 'package:id_scanner/models/events_model.dart';
@@ -95,7 +96,8 @@ class _AddCardState extends State<AddCard> {
                             inputLabel('النشاط'),
                             const SizedBox(height: 5),
                             controller.loading
-                                ? const Center(child: CircularProgressIndicator())
+                                ? const Center(
+                                    child: CircularProgressIndicator())
                                 : DropdownButtonFormField2(
                                     decoration: kAddCardInputFieldDecoration,
                                     isExpanded: true,
@@ -105,7 +107,8 @@ class _AddCardState extends State<AddCard> {
                                     buttonPadding: const EdgeInsets.symmetric(
                                         horizontal: 10),
                                     dropdownDecoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15)),
+                                        borderRadius:
+                                            BorderRadius.circular(15)),
                                     items: controller.eventObject.data
                                         .map<DropdownMenuItem<EventDatum>>(
                                             (EventDatum event) {
@@ -144,7 +147,8 @@ class _AddCardState extends State<AddCard> {
                                       ),
                                 child: controller.frontImageName!.isEmpty
                                     ? Icon(Icons.image,
-                                        color: AppData.placeholderColor, size: 80)
+                                        color: AppData.placeholderColor,
+                                        size: 80)
                                     : Container(),
                               ),
                             ),
@@ -181,14 +185,15 @@ class _AddCardState extends State<AddCard> {
                                     ? const BoxDecoration()
                                     : BoxDecoration(
                                         image: DecorationImage(
-                                          image:
-                                              FileImage(controller.backImageFile),
+                                          image: FileImage(
+                                              controller.backImageFile),
                                           fit: BoxFit.cover,
                                         ),
                                       ),
                                 child: controller.backImageName!.isEmpty
                                     ? Icon(Icons.image,
-                                        color: AppData.placeholderColor, size: 80)
+                                        color: AppData.placeholderColor,
+                                        size: 80)
                                     : Container(),
                               ),
                             ),
@@ -216,11 +221,31 @@ class _AddCardState extends State<AddCard> {
                       ),
                       const SizedBox(height: 25),
                       RoundedButton(
-                        color: AppData.mainColor,
-                        child: const MyText(
-                            text: 'إنشاء', color: Colors.white, fontSize: 20),
-                        onPressed: () => controller.createCard(),
-                      ),
+                          color: AppData.mainColor,
+                          child: const MyText(
+                              text: 'إنشاء', color: Colors.white, fontSize: 20),
+                          onPressed: () {
+                            if (controller.selected == null) {
+                              showWarningSnackBar(
+                                'تنبيه',
+                                'يجب أن تختار نشاط',
+                              );
+                            } else if (controller.frontImageName!.isEmpty) {
+                              showWarningSnackBar(
+                                
+                                'تنبيه',
+
+                                'يجب أن تدخل وجه البطاقه',
+                              );
+                            } else if (controller.backImageName!.isEmpty) {
+                              showWarningSnackBar(
+                                'تنبيه',
+                                'يجب أن تدخل ظهر البطاقه',
+                              );
+                            } else {
+                              return controller.createCard();
+                            }
+                          }),
                       const SizedBox(height: 15),
                     ],
                   ),

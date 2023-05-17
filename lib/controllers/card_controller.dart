@@ -127,8 +127,11 @@ class CardController extends GetxController {
         await dbHelper.addCard(card);
 
         isLoading = false;
-
-        Get.toNamed(Home.id);
+        showSuccessSnackBar(
+          'انشاء ملف البطاقه',
+          'تم انشاء ملف البطاقه بنجاح',
+        );
+        Get.offAllNamed(Home.id);
         resetAttributes();
       } else {
         isLoading = false;
@@ -166,7 +169,11 @@ class CardController extends GetxController {
 
         isLoading = false;
 
-        Get.back();
+                showSuccessSnackBar(
+          'تعديل ملف البطاقه',
+          'تم تعديل ملف البطاقه بنجاح',
+        );
+         Get.offAllNamed(Home.id);
         resetAttributes();
       } else {
         isLoading = false;
@@ -300,7 +307,6 @@ class CardController extends GetxController {
   EventDatum? selected;
 
   getEvents() async {
-    
     try {
       // changeState(true);
 
