@@ -320,7 +320,7 @@ class CardController extends GetxController {
         var data = utf8.decode(response.bodyBytes);
         var result = jsonDecode(data);
         eventObject = EventModel.fromJson(result);
-        print(data);
+        
 
         ///error
       }

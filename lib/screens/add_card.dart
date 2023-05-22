@@ -232,9 +232,7 @@ class _AddCardState extends State<AddCard> {
                               );
                             } else if (controller.frontImageName!.isEmpty) {
                               showWarningSnackBar(
-                                
                                 'تنبيه',
-
                                 'يجب أن تدخل وجه البطاقه',
                               );
                             } else if (controller.backImageName!.isEmpty) {
