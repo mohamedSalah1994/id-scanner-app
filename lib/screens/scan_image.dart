@@ -8,6 +8,7 @@ import 'package:id_scanner/controllers/card_controller.dart';
 import 'package:id_scanner/utils/shared_variable.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
+import '../app_data.dart';
 import '../models/card_data.dart';
 import '../models/card_model.dart';
 import 'id_report.dart';
@@ -71,6 +72,9 @@ class _ScanImageState extends State<ScanImage> {
               ],
             ),
             body: ModalProgressHUD(
+               progressIndicator: CircularProgressIndicator(
+                  color: AppData.mainColor,
+                ),
               inAsyncCall: controller.isLoading,
               child: ListView(
                 padding: const EdgeInsets.all(10),

@@ -4,6 +4,7 @@ import 'package:id_scanner/controllers/card_controller.dart';
 import 'package:id_scanner/controllers/internet_connection_controller.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
+import '../app_data.dart';
 import '../widgets/cards_list.dart';
 
 import 'dynamic_form.dart';
@@ -43,6 +44,9 @@ class _HomeState extends State<Home> {
             ],
           ),
           body: ModalProgressHUD(
+             progressIndicator: CircularProgressIndicator(
+                  color: AppData.mainColor,
+                ),
             inAsyncCall: controller.isLoading,
             child: const CardsList(),
           ),

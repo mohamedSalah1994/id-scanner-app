@@ -24,6 +24,9 @@ class Login extends StatelessWidget {
         ),
         body: InterNetWidget(
           widget: ModalProgressHUD(
+             progressIndicator: CircularProgressIndicator(
+                  color: AppData.mainColor,
+                ),
             inAsyncCall: controller.isLoading,
             child: Padding(
               padding: const EdgeInsets.all(20),

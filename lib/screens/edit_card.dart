@@ -72,6 +72,9 @@ class _EditCardState extends State<EditCard> {
               ],
             ),
             body: ModalProgressHUD(
+               progressIndicator: CircularProgressIndicator(
+                  color: AppData.mainColor,
+                ),
               inAsyncCall: controller.isLoading,
               child: RawScrollbar(
                 thumbColor: Colors.blue,
