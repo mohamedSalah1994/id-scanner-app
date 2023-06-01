@@ -4,7 +4,7 @@ class AppData {
   static String appName = 'ID Scanner';
 
   // App Colors
-  static Color mainColor = Colors.blue;
+  static Color mainColor = const Color(0xff5DB1DF);
   static Color primaryFontColor = const Color(0XFF4A4B4D);
   static Color secondaryFontColor = const Color(0XFF7C7D7E);
   static Color placeholderColor = const Color(0XFFB6B7B7);

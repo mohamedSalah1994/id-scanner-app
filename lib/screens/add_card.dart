@@ -78,6 +78,9 @@ class _AddCardState extends State<AddCard> {
                 ],
               ),
               body: ModalProgressHUD(
+                progressIndicator: CircularProgressIndicator(
+                  color: AppData.mainColor,
+                ),
                 inAsyncCall: controller.isLoading,
                 child: RawScrollbar(
                   thumbColor: Colors.blue,
@@ -92,6 +95,7 @@ class _AddCardState extends State<AddCard> {
                         key: controller.createFormKey,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
+                          
                           children: [
                             inputLabel('النشاط'),
                             const SizedBox(height: 5),
@@ -152,9 +156,9 @@ class _AddCardState extends State<AddCard> {
                                     : Container(),
                               ),
                             ),
-                            ValidationError(
-                                errorMessage: 'أدخل وجه البطاقة',
-                                visible: controller.frontImageName!.isEmpty),
+                            // ValidationError(
+                            //     errorMessage: 'أدخل وجه البطاقة',
+                            //     visible: controller.frontImageName!.isEmpty),
                             const SizedBox(height: 20),
                             RoundedButton(
                               color: Colors.white,
@@ -197,10 +201,10 @@ class _AddCardState extends State<AddCard> {
                                     : Container(),
                               ),
                             ),
-                            ValidationError(
-                                errorMessage: 'أدخل ظهر البطاقة',
-                                visible: controller.backImageName!.isEmpty),
-                            const SizedBox(height: 20),
+                            // ValidationError(
+                            //     errorMessage: 'أدخل ظهر البطاقة',
+                            //     visible: controller.backImageName!.isEmpty),
+                            const SizedBox(height: 50),
                             RoundedButton(
                               color: Colors.white,
                               child: MyText(
@@ -219,7 +223,7 @@ class _AddCardState extends State<AddCard> {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 25),
+                      const SizedBox(height: 15),
                       RoundedButton(
                           color: AppData.mainColor,
                           child: const MyText(
@@ -244,7 +248,7 @@ class _AddCardState extends State<AddCard> {
                               return controller.createCard();
                             }
                           }),
-                      const SizedBox(height: 15),
+                     
                     ],
                   ),
                 ),

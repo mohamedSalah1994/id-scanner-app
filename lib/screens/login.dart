@@ -34,23 +34,51 @@ class Login extends StatelessWidget {
                     logoText(),
 
                     const SizedBox(height: 50),
+
                     TextField(
+                      cursorColor: AppData.mainColor,
                       decoration: InputDecoration(
-                          border: OutlineInputBorder(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: AppData.mainColor,
+                            ),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          labelText: 'اسم المستخدم'),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: AppData.mainColor,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          labelText: 'اسم المستخدم',
+                           labelStyle: TextStyle(
+                            color: AppData.primaryFontColor,
+                          ),
+                          ),
                       controller: controller.email,
                     ),
                     const SizedBox(height: 15),
                     Obx(
                       () => TextField(
+                        cursorColor: AppData.mainColor,
                         obscureText: controller.isPaawordHidden.value,
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: AppData.mainColor,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: AppData.mainColor,
+                            ),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           labelText: 'كلمة المرور',
+                          labelStyle: TextStyle(
+                            color: AppData.primaryFontColor,
+                          ),
                           suffix: InkWell(
                             child: Icon(
                               controller.isPaawordHidden.value
