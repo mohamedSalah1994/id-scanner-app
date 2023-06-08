@@ -11,4 +11,5 @@ class AppData {
   static Color facebookColor = const Color(0XFF367FC0);
   static Color googleColor = const Color(0XFFDD4B39);
   static Color textFieldFillColor = const Color(0XFFF2F2F2);
+  static Color mainColor1 = const Color(0xff5DB1DF);
 }
