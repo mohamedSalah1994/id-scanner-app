@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:id_scanner/components/alert_exit_app.dart';
 import 'package:id_scanner/widgets/internet_widget.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
@@ -18,11 +19,13 @@ class Login extends StatelessWidget {
 
     return GetBuilder<LoginController>(builder: (controller) {
       return Scaffold(
-        appBar: AppBar(
-          backgroundColor: AppData.mainColor,
-          title: const Text('تسجيل الدخول'),
-        ),
-        body: InterNetWidget(
+          appBar: AppBar(
+            backgroundColor: AppData.mainColor,
+            title: const Text('تسجيل الدخول'),
+          ),
+          body: WillPopScope(
+            onWillPop: alertExitApp,
+            child: InterNetWidget(
           widget: ModalProgressHUD(
              progressIndicator: CircularProgressIndicator(
                   color: AppData.mainColor,
@@ -130,7 +133,8 @@ class Login extends StatelessWidget {
             ),
           ),
         ),
-      );
+            
+          ));
     });
   }
 }

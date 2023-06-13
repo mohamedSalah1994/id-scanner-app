@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:id_scanner/components/alert_exit_app.dart';
 import 'package:id_scanner/controllers/location_controller.dart';
 import 'package:id_scanner/screens/login.dart';
 
@@ -31,8 +32,10 @@ class _WelcomeState extends State<Welcome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
+        backgroundColor: Colors.white,
+        body: WillPopScope(
+          onWillPop: alertExitApp,
+          child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
@@ -108,6 +111,7 @@ class _WelcomeState extends State<Welcome> {
           // Divider(color: AppData.primaryFontColor, thickness: 4, indent: 130, endIndent: 130),
         ],
       ),
-    );
+          
+        ));
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:id_scanner/components/alert_exit_app.dart';
 import 'package:id_scanner/controllers/card_controller.dart';
 import 'package:id_scanner/controllers/internet_connection_controller.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -43,12 +44,16 @@ class _HomeState extends State<Home> {
               )
             ],
           ),
-          body: ModalProgressHUD(
+          body: WillPopScope(
+            onWillPop: alertExitApp,
+            child: ModalProgressHUD(
              progressIndicator: CircularProgressIndicator(
                   color: AppData.mainColor,
                 ),
             inAsyncCall: controller.isLoading,
             child: const CardsList(),
+          ),
+            
           ),
           floatingActionButton: SizedBox(
             width: 60,

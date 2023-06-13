@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:id_scanner/components/show_snack_bar.dart';
-import 'package:id_scanner/components/validation/validation_error.dart';
+
 import 'package:id_scanner/controllers/card_controller.dart';
 import 'package:id_scanner/models/events_model.dart';
 import 'package:id_scanner/widgets/internet_widget.dart';
