@@ -45,12 +45,8 @@ class _ScanImageState extends State<ScanImage> {
   TextEditingController husController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: GetBuilder<CardController>(
-        builder: (controller) {
-          nameController.text = cardData.name!;
+  void initState() {
+    nameController.text = cardData.name!;
           addressController.text = cardData.address!;
           jobController.text = cardData.job!;
           // genderController.text = cardData.gender!;
@@ -60,6 +56,16 @@ class _ScanImageState extends State<ScanImage> {
           //  birthPlaceController.text = cardData.birthPlace!;
           husController.text = cardData.hus!;
 
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: GetBuilder<CardController>(
+        builder: (controller) {
+    
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
@@ -302,7 +308,7 @@ class _ScanImageState extends State<ScanImage> {
                           const SizedBox(
                             width: 120.0,
                             child: Text(
-                              'تاريخ الميلاد :',
+                              'تاريخ الميلاد : ',
                               style: TextStyle(fontSize: 18.0),
                             ),
                           ),

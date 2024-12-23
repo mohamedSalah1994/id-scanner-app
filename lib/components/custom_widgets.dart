@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../app_data.dart';
 import 'my_text.dart';
@@ -11,20 +12,20 @@ Column logoText() {
         children: [
           Text(
             'ID ',
-            style: TextStyle(color: AppData.mainColor, fontSize: 50, fontWeight: FontWeight.bold),
+            style: TextStyle(color: AppData.mainColor, fontSize: 48.sp, fontWeight: FontWeight.bold),
           ),
           Text(
             'Scanner',
-            style: TextStyle(color: AppData.primaryFontColor, fontSize: 50, fontWeight: FontWeight.bold),
+            style: TextStyle(color: AppData.primaryFontColor, fontSize: 48.sp, fontWeight: FontWeight.bold),
           ),
         ],
       ),
-      const SizedBox(height: 5),
+      // const SizedBox(height: 5),
       Text(
         'Text Recognition',
         textAlign: TextAlign.center,
         style:
-            TextStyle(color: AppData.primaryFontColor, fontSize: 10, letterSpacing: 2.5, fontWeight: FontWeight.w500),
+            TextStyle(color: AppData.primaryFontColor, fontSize: 10.sp, letterSpacing: 2.5, fontWeight: FontWeight.w500),
       ),
     ],
   );

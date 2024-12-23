@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:get/get.dart';
 import 'package:id_scanner/components/alert_exit_app.dart';
 import 'package:id_scanner/controllers/location_controller.dart';
-import 'package:id_scanner/screens/login.dart';
+
 
 import '../app_data.dart';
 import '../components/custom_widgets.dart';
 import '../components/my_text.dart';
 import '../components/rounded_button.dart';
-import '../utils/shared_variable.dart';
+
 import 'home.dart';
+import 'login.dart';
+import 'loginAuth.dart';
 
 class Welcome extends StatefulWidget {
   const Welcome({Key? key}) : super(key: key);
@@ -21,97 +24,103 @@ class Welcome extends StatefulWidget {
 }
 
 class _WelcomeState extends State<Welcome> {
-  LocationController location = LocationController();
+  // LocationController location = LocationController();
 
   @override
   void initState() {
-    location.getLocationPermission();
+    // location.getLocationPermission();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    final screenWidth = screenSize.width;
+    final screenHeight = screenSize.height;
+    String? tokenString =
+        CacheHelper.getData(key: 'token'); // Retrieve the JSON string
+    bool isLoggedIn = tokenString != null;
     return Scaffold(
         backgroundColor: Colors.white,
-        body: WillPopScope(
-          onWillPop: alertExitApp,
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Image.asset('images/id_scanner.png'),
-                // child: Image.file(File('/storage/emulated/0/ID Scanner/front-123.jpg')),
-                // child: Image.asset('images/empty_id.jpg'),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 30, right: 30, top: 30),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    logoText(),
-                    const SizedBox(height: 35),
-                    smallText(
-                      'Scan egyptian identity cards for egyptian people \n to read and extract the text',
-                      fontSize: 13,
-                    ),
-                    const SizedBox(height: 70),
-                    RoundedButton(
-                      color: AppData.mainColor,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Padding(
-                            padding: EdgeInsets.all(12),
-                            child: Text('إبدأ الأن',
-                                style:
-                                    TextStyle(color: Colors.white, fontSize: 18)),
+        body: SafeArea(
+          child: WillPopScope(
+            onWillPop: alertExitApp,
+            child: ListView(
+              children: [
+                SizedBox(
+                  height: screenHeight * 0.95,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          Image.asset(
+                            'images/id_scanner.png',
+                            width: screenWidth,
+                            height: screenHeight * 0.33,
                           ),
-                          SizedBox(width: 50),
-                          Icon(Icons.arrow_forward_outlined,
-                              color: Colors.white, size: 24),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 30,
+                              right: 30,
+                            ),
+                            child: Column(
+                              children: [
+                                logoText(),
+                                SizedBox(height: 24.h),
+                                smallText(
+                                  isLoggedIn
+                                      ? "مرحبًا بعودتك!"
+                                      : "مرحبًا! يرجى تسجيل الدخول.",
+                                  fontSize: 16.sp,
+                                ),
+                                SizedBox(height: 24.h),
+                                RoundedButton(
+                                  color: AppData.mainColor,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8),
+                                        child: Text(
+                                            isLoggedIn
+                                                ? "إبدأ الأن"
+                                                : "  تسجيل الدخول",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16.sp)),
+                                      ),
+                                       SizedBox(width: 50.w),
+                                      Icon(Icons.arrow_forward_outlined,
+                                          color: Colors.white, size: 24.sp),
+                                    ],
+                                  ),
+                                  onPressed: () async {
+                                    if (isLoggedIn) {
+                                      Get.offAllNamed(Home.id);
+                                    } else {
+                                      Get.offAllNamed(Login.id);
+                                    }
+                                  },
+                                ),
+                              
+                              ],
+                            ),
+                          ),
                         ],
                       ),
-                      onPressed: () async {
-                        if (LocationController.permission ==
-                                LocationPermission.always ||
-                            LocationController.permission ==
-                                LocationPermission.whileInUse) {
-                          Get.offAllNamed(token == null ? Login.id : Home.id);
-                        } else {
-                          await location.getLocationPermission();
-                          if (LocationController.permission ==
-                                  LocationPermission.always ||
-                              LocationController.permission ==
-                                  LocationPermission.whileInUse) {
-                            Get.toNamed(Login.id);
-                          }
-                        }
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ],
+                      MyText(
+                        text: '© 2022  مركز نظم المعلومات المتكامل',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.sp,
+                        color: AppData.mainColor,
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
-
-          Column(
-            children: [
-              MyText(
-                text: '© 2022  مركز نظم المعلومات المتكامل',
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-                color: AppData.mainColor,
-              ),
-              const SizedBox(height: 30),
-            ],
-          ),
-          // Divider(color: AppData.primaryFontColor, thickness: 4, indent: 130, endIndent: 130),
-        ],
-      ),
-          
         ));
   }
 }

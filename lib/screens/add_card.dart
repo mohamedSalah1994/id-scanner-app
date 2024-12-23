@@ -95,7 +95,6 @@ class _AddCardState extends State<AddCard> {
                         key: controller.createFormKey,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
-                          
                           children: [
                             inputLabel('النشاط'),
                             const SizedBox(height: 5),
@@ -129,7 +128,8 @@ class _AddCardState extends State<AddCard> {
                                     onChanged: (EventDatum? newValue) {
                                       controller.selected = newValue;
                                     },
-                                    onSaved: (value) {}),
+                                   
+                                  ),
                             const SizedBox(height: 20),
                             inputLabel('وجه البطاقة'),
                             const SizedBox(height: 5),
@@ -248,7 +248,6 @@ class _AddCardState extends State<AddCard> {
                               return controller.createCard();
                             }
                           }),
-                     
                     ],
                   ),
                 ),

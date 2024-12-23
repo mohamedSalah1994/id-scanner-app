@@ -15,8 +15,10 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:path/path.dart';
 
 import '../components/show_snack_bar.dart';
+import '../core/url_path.dart';
 import '../models/card_data.dart';
 import '../models/events_model.dart';
+
 import '../screens/home.dart';
 import '../utils/db_helper.dart';
 import '../utils/utils.dart';
@@ -25,7 +27,7 @@ import 'package:http/http.dart' as http;
 
 class CardController extends GetxController {
   DBHelper dbHelper = DBHelper();
-
+  
   late EventModel eventObject;
   @override
   void onInit() {
@@ -67,7 +69,7 @@ class CardController extends GetxController {
   File get frontImageFile => _frontImageFile!.value;
   Rx<File>? _backImageFile;
   File get backImageFile => _backImageFile!.value;
-  LocationController location = LocationController();
+  // LocationController location = LocationController();
 
   void resetAttributes() {
     event = null;
@@ -107,11 +109,11 @@ class CardController extends GetxController {
       String extStoragePath =
           await ExternalPath.getExternalStoragePublicDirectory(
               ExternalPath.DIRECTORY_DCIM + '/ID Scanner');
-      var currentPosition = await location.getCurrentLocation();
+      // var currentPosition = await location.getCurrentLocation();
       var data = jsonDecode(token.toString());
       var user_id = data['id'];
 
-      if (currentPosition != null) {
+ 
         CardModel card = CardModel();
 
         card.id = '$user_id-${DateTime.now()}';
@@ -119,9 +121,9 @@ class CardController extends GetxController {
         card.user_id = user_id;
         card.frontImagePath = '$extStoragePath/$frontImageName';
         card.backImagePath = '$extStoragePath/$backImageName';
-        card.lat = currentPosition.latitude;
-        card.long = currentPosition.longitude;
-        card.userAddress = await location.getCurrentAddress();
+        card.lat = 0;
+        card.long = 0;
+        card.userAddress = '';
         card.deviceSerialNumber = await getSerialNumber();
 
         await dbHelper.addCard(card);
@@ -133,10 +135,7 @@ class CardController extends GetxController {
         );
         Get.offAllNamed(Home.id);
         resetAttributes();
-      } else {
-        isLoading = false;
-        showLocationAlertSnackBar('Open Location Service.');
-      }
+      
     }
   }
 
@@ -149,9 +148,9 @@ class CardController extends GetxController {
       String extStoragePath =
           await ExternalPath.getExternalStoragePublicDirectory(
               ExternalPath.DIRECTORY_DCIM + '/ID Scanner');
-      var currentPosition = await location.getCurrentLocation();
+      // var currentPosition = await location.getCurrentLocation();
 
-      if (currentPosition != null) {
+    
         if (event != null) card.event = event?.name;
         if (_frontImageName!.isNotEmpty) {
           _deleteFile(File(card.frontImagePath.toString()));
@@ -161,9 +160,9 @@ class CardController extends GetxController {
           _deleteFile(File(card.backImagePath.toString()));
           card.backImagePath = '$extStoragePath/$backImageName';
         }
-        card.lat = currentPosition.latitude;
-        card.long = currentPosition.longitude;
-        card.userAddress = await location.getCurrentAddress();
+        card.lat = 0;
+        card.long = 0;
+        card.userAddress = '';
         card.deviceSerialNumber = await getSerialNumber();
         await dbHelper.updateCard(card);
 
@@ -175,10 +174,7 @@ class CardController extends GetxController {
         );
          Get.offAllNamed(Home.id);
         resetAttributes();
-      } else {
-        isLoading = false;
-        showLocationAlertSnackBar('Open Location Service.');
-      }
+      
     }
   }
 
@@ -262,7 +258,8 @@ class CardController extends GetxController {
       // String birthPlace,
       String hus,
       List changedList) async {
-    Uri url = Uri.parse('https://41.218.156.154/reader/save');
+    
+    Uri url = Uri.parse('${Urls.baseUrl}save');
     var request = http.MultipartRequest('POST', url);
 
     Map<String, String> data = {
@@ -311,7 +308,7 @@ class CardController extends GetxController {
       // changeState(true);
 
       http.Response response = await http.get(
-        Uri.tryParse('https://41.218.156.154/reader/getevents')!,
+        Uri.tryParse('${Urls.baseUrl}getevents')!,
       );
       if (response.statusCode == 200) {
         changeState(false);

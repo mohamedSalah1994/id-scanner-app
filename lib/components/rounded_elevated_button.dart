@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:id_scanner/components/show_snack_bar.dart';
 import 'package:id_scanner/controllers/internet_connection_controller.dart';
@@ -33,8 +34,8 @@ class RoundedElevatedButton extends StatelessWidget {
             ),
             child: Text(
               text,
-              style: const TextStyle(
-                fontSize: 15,
+              style:  TextStyle(
+                fontSize: 15.sp,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),

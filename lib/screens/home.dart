@@ -6,9 +6,11 @@ import 'package:id_scanner/controllers/internet_connection_controller.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../app_data.dart';
+import '../controllers/login_controller.dart';
 import '../widgets/cards_list.dart';
 
-import 'dynamic_form.dart';
+import '../widgets/custom_drawer.dart';
+
 import 'img_standards.dart';
 
 class Home extends StatefulWidget {
@@ -29,21 +31,24 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return GetBuilder<CardController>(
       builder: (controller) {
+        final loginController = Get.find<LoginController>();
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.black,
             title: const Text('البطاقات '),
             centerTitle: true,
-            actions: [
-              IconButton(
-                icon: const Icon(
-                  Icons.format_align_center,
-                  size: 25,
-                ),
-                onPressed: () => Get.toNamed(DynamicFrom.id),
-              )
-            ],
+            // actions: [
+            //   IconButton(
+            //     icon: const Icon(
+            //       Icons.format_align_center,
+            //       size: 25,
+            //     ),
+            //     onPressed: () => Get.toNamed(DynamicFrom.id),
+            //   )
+            // ],
           ),
+          drawer: CustomDrawer(loginController: loginController),
+          
           body: WillPopScope(
             onWillPop: alertExitApp,
             child: ModalProgressHUD(
@@ -73,5 +78,7 @@ class _HomeState extends State<Home> {
     );
   }
 }
+
+
 
 //N6F26Q

@@ -10,16 +10,20 @@ import 'package:id_scanner/components/rounded_elevated_button.dart';
 import 'package:id_scanner/components/show_snack_bar.dart';
 import 'package:id_scanner/controllers/card_controller.dart';
 import 'package:id_scanner/controllers/internet_connection_controller.dart';
+
 import 'package:id_scanner/models/card_model.dart';
 
-import 'package:id_scanner/screens/home.dart';
+
 import 'package:id_scanner/widgets/internet_widget.dart';
 
 import '../app_data.dart';
 import '../components/my_text.dart';
 import '../models/card_data.dart';
 
+
 import '../screens/edit_card.dart';
+import '../screens/home.dart';
+import '../screens/loginAuth.dart';
 import '../screens/scan_image.dart';
 
 class CardsList extends StatelessWidget {
@@ -34,10 +38,10 @@ class CardsList extends StatelessWidget {
             future: cardController.getAllLocalCards(),
             builder: (context, AsyncSnapshot<List> snapshot) {
               if (!snapshot.hasData) {
-                return Center(
+                return const Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children: [
                       Text('Loading...'),
                       SizedBox(width: 15),
                       CircularProgressIndicator(),
@@ -84,10 +88,11 @@ class CardsList extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
                                       border: Border.all(
-                                          color: Colors.grey.shade400, width: 2),
+                                          color: Colors.grey.shade400,
+                                          width: 2),
                                       image: DecorationImage(
-                                        image: FileImage(
-                                            File(card.frontImagePath.toString())),
+                                        image: FileImage(File(
+                                            card.frontImagePath.toString())),
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -98,33 +103,31 @@ class CardsList extends StatelessWidget {
                                   child: RoundedElevatedButton(
                                       text: 'إرسال',
                                       onPressed: () async {
-                                        
-                                        
-                                          cardController.isLoading = true;
-                                          Map<String, dynamic> responseData =
-                                              await _scanCard(card);
-                                          CardData cardData =
-                                              CardData.fromMap(responseData);
-              
-                                          if (responseData.isNotEmpty) {
-                                            cardController.isLoading = false;
-                                            Get.toNamed(ScanImage.id,
-                                                arguments: cardData);
-                                          } else {
-                                            cardController.isLoading = false;
-              
-                                            showRecaptureSnackBar('تنبيه',
-                                                'يوجد مشكله بالصوره اعد التقاط الصوره');
-                                            Get.offAndToNamed(Home.id);
-                                            // massage("good luck", context);
-                                            //Alert(context: context, title: "RFLUTTER", desc: "Flutter is awesome.").show();
-              
-                                          }
-                                        
+                                        cardController.isLoading = true;
+                                        Map<String, dynamic> responseData =
+                                            await _scanCard(card);
+                                        CardData cardData =
+                                            CardData.fromMap(responseData);
+
+                                        if (responseData.isNotEmpty) {
+                                          cardController.isLoading = false;
+
+                                          Get.toNamed(ScanImage.id,
+                                              arguments: cardData);
+                                        } else {
+                                          cardController.isLoading = false;
+
+                                          showRecaptureSnackBar('تنبيه',
+                                              'يوجد مشكله بالصوره اعد التقاط الصوره');
+                                          Get.offAndToNamed(Home.id);
+                                          // massage("good luck", context);
+                                          //Alert(context: context, title: "RFLUTTER", desc: "Flutter is awesome.").show();
+                                        }
+
                                         //else  {cardController.isLoading = false;}  by m_gomaa
                                       }),
                                 ),
-                                const SizedBox(height: 3),
+                                // const SizedBox(height: 3),
                               ],
                             ),
                             footer: Container(
@@ -185,7 +188,8 @@ class CardsList extends StatelessWidget {
                                   color: Colors.black54),
                               child: IconButton(
                                 visualDensity: VisualDensity.compact,
-                                icon: const Icon(Icons.edit, color: Colors.white),
+                                icon:
+                                    const Icon(Icons.edit, color: Colors.white),
                                 onPressed: () =>
                                     Get.toNamed(EditCard.id, arguments: card),
                               ),
@@ -204,57 +208,57 @@ class CardsList extends StatelessWidget {
     );
   }
 
-  Future<Map<String, dynamic>> _scanCard(CardModel card) async {
-    String frontImageName = card.frontImagePath!.split('/').last;
-    String backImageName = card.backImagePath!.split('/').last;
-    Uri url = Uri.parse('https://41.218.156.154/reader/api');
-    var request = http.MultipartRequest('POST', url);
-
-    //============================================================
-    var frontImage = _createFormFileFromStream(
-        jsonKey: 'front_image',
-        filePath: card.frontImagePath,
-        fileName: frontImageName);
-    var backImage = _createFormFileFromStream(
-        jsonKey: 'back_image',
-        filePath: card.backImagePath,
-        fileName: backImageName);
-
-    request.fields.addAll({
-      "event": card.event.toString(),
-      "user_id": card.user_id.toString(),
-    });
-    request.files.add(frontImage);
-    request.files.add(backImage);
-    // CardModel card1 = Card();
-    //============================================================
-    try {
-      var response = await request.send();
-      var responseDataAsBytes = await response.stream.toBytes();
-      var responseData = json.decode(utf8.decode(responseDataAsBytes));
-
-      if (response.statusCode == 400) {
-
-        return {};
-      } else {
-        return responseData;
-      }
-    } catch (e) {
-      
-      return {};
-    }
+// Function to create a form file from a file path
+  Future<http.MultipartFile> _createFormFileFromStream({
+    required String jsonKey,
+    required String filePath,
+    required String fileName,
+  }) async {
+    final file = File(filePath);
+    return await http.MultipartFile.fromPath(jsonKey, file.path,
+        filename: fileName);
   }
 
-  http.MultipartFile _createFormFileFromStream({
-    required String jsonKey,
-    required String? filePath,
-    required String fileName,
-  }) {
-    return http.MultipartFile(
-      jsonKey,
-      File(filePath.toString()).readAsBytes().asStream(),
-      File(filePath.toString()).lengthSync(),
-      filename: fileName,
+  Future<Map<String, dynamic>> _scanCard(CardModel card) async {
+    const String url = 'https://api-ocr.egcloud.gov.eg/reader/api';
+    String? tokenString =
+        CacheHelper.getData(key: 'token'); // Retrieve the JSON string
+    Map<String, dynamic> tokenData =
+        json.decode(tokenString!); // Parse the JSON string
+
+    String token = tokenData['token']; // Access the token value
+
+ 
+
+    var request = http.MultipartRequest('POST', Uri.parse(url))
+      ..headers['Authorization'] = 'Token $token';
+
+    var frontImage = await _createFormFileFromStream(
+      jsonKey: 'front_image',
+      filePath: card.frontImagePath!,
+      fileName: 'front_image.jpg',
     );
+
+    var backImage = await _createFormFileFromStream(
+      jsonKey: 'back_image',
+      filePath: card.backImagePath!,
+      fileName: 'back_image.jpg',
+    );
+
+    request.files.add(frontImage);
+    request.files.add(backImage);
+
+    try {
+      var response = await request.send();
+      final responseData = await http.Response.fromStream(response);
+
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        return json.decode(utf8.decode(responseData.bodyBytes));
+      } else {
+        throw Exception('Failed to post images: ${responseData.body}');
+      }
+    } catch (error) {
+      throw Exception('Error occurred: $error');
+    }
   }
 }

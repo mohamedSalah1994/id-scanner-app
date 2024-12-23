@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'add_card.dart';
@@ -13,43 +14,52 @@ class ImgStandarads extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: const Text('معايير الصوره'),
+        centerTitle: true,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Spacer(),
-            Image.asset(
-              'images/flashlight.png',
-              width: 100.0,
-              height: 100.0,
+      body: SizedBox(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+             
+              children: [
+                SizedBox(
+                  height: 16.0.h,
+                ),
+                Image.asset(
+                  'images/flashlight.png',
+                  width: 100.0.w,
+                  height: 100.0.h,
+                ),
+                const Text('التأكد من التقاط صورة البطاقة في اضاءه واضحه',
+                    textAlign: TextAlign.center),
+                 SizedBox(
+                  height: 24.0.h,
+                ),
+                Image.asset(
+                  'images/crop-tool.png',
+                  width: 100.0.w,
+                  height: 100.0.h,
+                ),
+                const Text(
+                    'التأكد من ان تكون جميع حدود صوره البطاقة  بالكامل',
+                    textAlign: TextAlign.center),
+                 SizedBox(
+                  height: 24.0.h,
+                ),
+                Image.asset(
+                  'images/prism.png',
+                  width: 100.0.w,
+                  height: 100.0.h,
+                ),
+                const Text('يجب ان لايوجد انعكاس للضوء على الصوره',
+                    textAlign: TextAlign.center),
+       
+              ],
             ),
-            const Text('التأكد من التقاط صورة البطاقة في اضاءه واضحه'),
-            const SizedBox(
-              height: 40.0,
-            ),
-            Image.asset(
-              'images/crop-tool.png',
-              width: 100.0,
-              height: 100.0,
-            ),
-            const Text(
-                'التأكد من ان تكون جميع حدود صوره البطاقة واضحه بالكامل'),
-            const SizedBox(
-              height: 40.0,
-            ),
-            Image.asset(
-              'images/prism.png',
-              width: 100.0,
-              height: 100.0,
-            ),
-            const Text('يجب ان لايوجد انعكاس للضوء على الصوره'),
-            const Spacer(),
-            const Spacer()
-          ],
+          ),
         ),
       ),
-     
       floatingActionButton: SizedBox(
         width: 60,
         height: 60,

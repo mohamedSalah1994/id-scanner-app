@@ -31,6 +31,7 @@ dependencies:
   awesome_snackbar_content: ^0.0.8
   connectivity_plus: 2.3.0
   cupertino_icons: ^1.0.2
+  custom_refresh_indicator: null
   device_info_plus: ^8.0.0
   dotted_border: ^2.0.0+2
   dropdown_button2: ^1.7.0
@@ -39,12 +40,11 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_device_identifier: ^0.0.1
-  flutter_image_compress: ^1.1.0
+  flutter_image_compress: ^2.3.0
   flutter_image_slideshow: ^0.1.4
+  flutter_screenutil: null
   fluttertoast: ^8.1.1
   gallery_saver: ^2.3.2
-  geocoding: ^2.0.4
-  geolocator: ^9.0.1
   get: 4.6.5
   google_fonts: ^4.0.4
   http: ^0.13.4
