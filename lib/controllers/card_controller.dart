@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:external_path/external_path.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_identifier/flutter_device_identifier.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -112,6 +113,7 @@ class CardController extends GetxController {
               ExternalPath.DIRECTORY_DCIM + '/ID Scanner');
       // var currentPosition = await location.getCurrentLocation();
       var data = jsonDecode(token.toString());
+      // ignore: non_constant_identifier_names
       var user_id = data['id'];
 
  
@@ -210,7 +212,9 @@ Future chooseCardImage({bool isFront = true}) async {
     await GallerySaver.saveImage(compressedFile.path,
         albumName: 'ID Scanner', toDcim: true);
   } else {
-    print("Image compression failed");
+    if (kDebugMode) {
+      print("Image compression failed");
+    }
   }
 
   update();
@@ -226,7 +230,9 @@ Future<File?> _compressImage(File file, String targetPath) async {
     );
     return compressedFile;
   } catch (e) {
-    print("Error compressing image: $e");
+    if (kDebugMode) {
+      print("Error compressing image: $e");
+    }
     return null;
   }
 }

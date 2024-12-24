@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:get/get.dart';
 import 'package:id_scanner/controllers/card_controller.dart';
-import 'package:id_scanner/utils/shared_variable.dart';
+
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../app_data.dart';
