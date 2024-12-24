@@ -24,7 +24,7 @@ import '../models/events_model.dart';
 import '../screens/home.dart';
 import '../utils/db_helper.dart';
 import '../utils/utils.dart';
-import 'location_controller.dart';
+
 import 'package:http/http.dart' as http;
 
 class CardController extends GetxController {
