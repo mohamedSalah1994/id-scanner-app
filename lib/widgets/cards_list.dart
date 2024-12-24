@@ -13,13 +13,11 @@ import 'package:id_scanner/controllers/internet_connection_controller.dart';
 
 import 'package:id_scanner/models/card_model.dart';
 
-
 import 'package:id_scanner/widgets/internet_widget.dart';
 
 import '../app_data.dart';
 import '../components/my_text.dart';
 import '../models/card_data.dart';
-
 
 import '../screens/edit_card.dart';
 import '../screens/home.dart';
@@ -103,26 +101,7 @@ class CardsList extends StatelessWidget {
                                   child: RoundedElevatedButton(
                                       text: 'إرسال',
                                       onPressed: () async {
-                                        cardController.isLoading = true;
-                                        Map<String, dynamic> responseData =
-                                            await _scanCard(card);
-                                        CardData cardData =
-                                            CardData.fromMap(responseData);
-
-                                        if (responseData.isNotEmpty) {
-                                          cardController.isLoading = false;
-
-                                          Get.toNamed(ScanImage.id,
-                                              arguments: cardData);
-                                        } else {
-                                          cardController.isLoading = false;
-
-                                          showRecaptureSnackBar('تنبيه',
-                                              'يوجد مشكله بالصوره اعد التقاط الصوره');
-                                          Get.offAndToNamed(Home.id);
-                                          // massage("good luck", context);
-                                          //Alert(context: context, title: "RFLUTTER", desc: "Flutter is awesome.").show();
-                                        }
+                                        await _scanCard(card);
 
                                         //else  {cardController.isLoading = false;}  by m_gomaa
                                       }),
@@ -228,8 +207,6 @@ class CardsList extends StatelessWidget {
 
     String token = tokenData['token']; // Access the token value
 
- 
-
     var request = http.MultipartRequest('POST', Uri.parse(url))
       ..headers['Authorization'] = 'Token $token';
 
@@ -248,17 +225,36 @@ class CardsList extends StatelessWidget {
     request.files.add(frontImage);
     request.files.add(backImage);
 
+    // Set loading to true before starting the request
+    final cardController = Get.find<CardController>();
+    cardController.isLoading = true;
+
     try {
       var response = await request.send();
       final responseData = await http.Response.fromStream(response);
 
       if (response.statusCode == 201 || response.statusCode == 200) {
-        return json.decode(utf8.decode(responseData.bodyBytes));
+        // Decode response data
+        Map<String, dynamic> responseDataMap =
+            json.decode(utf8.decode(responseData.bodyBytes));
+        CardData cardData = CardData.fromMap(responseDataMap);
+
+        // Navigate to ScanImage with cardData
+        Get.toNamed(ScanImage.id, arguments: cardData);
+
+        return responseDataMap;
       } else {
         throw Exception('Failed to post images: ${responseData.body}');
       }
     } catch (error) {
-      throw Exception('Error occurred: $error');
+      // Show error dialog
+      showRecaptureSnackBar('تنبيه', 'يوجد مشكله بالصوره اعد التقاط الصوره');
+
+      // Return an empty map to indicate failure
+      return {};
+    } finally {
+      // Always set loading to false after completing the process
+      cardController.isLoading = false;
     }
   }
 }

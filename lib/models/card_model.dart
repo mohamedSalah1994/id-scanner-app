@@ -6,6 +6,7 @@ class CardModel {
       userAddress,
       deviceSerialNumber;
   double? lat, long;
+  // ignore: non_constant_identifier_names
   int? user_id;
 
   CardModel();

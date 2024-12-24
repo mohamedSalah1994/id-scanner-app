@@ -6,6 +6,7 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:external_path/external_path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_identifier/flutter_device_identifier.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:get/get.dart';
 import 'package:id_scanner/enums/event_enum.dart';
@@ -179,34 +180,87 @@ class CardController extends GetxController {
   }
 
   // picking card image
-  Future chooseCardImage({bool isFront = true}) async {
-    final file = await Utils.pickMedia(isCamera: camera, cropImage: cropImage);
-    // final file = await Utils.pickMedia(isCamera: camera);
-    if (file == null || file == File('') || file.path == '') return;
 
-    // /storage/emulated/0/DCIM/ID Scanner/
-    String fileExtension = extension(file.path);
-    String dir = dirname(file.path);
-    int now = DateTime.now().millisecondsSinceEpoch;
-    String newName;
 
-    if (isFront) {
-      _frontImageName = Rx('front-$now$fileExtension');
-      newName = join(dir, frontImageName);
-      _frontImageFile = Rx(file);
-    } else {
-      _backImageName = Rx('back-$now$fileExtension');
-      newName = join(dir, backImageName);
-      _backImageFile = Rx(file);
-    }
+Future chooseCardImage({bool isFront = true}) async {
+  final file = await Utils.pickMedia(isCamera: camera);
+  if (file == null || file == File('') || file.path == '') return;
 
-    File tempFile = await file.copy(newName);
+  // Get file extension and directory
+  String fileExtension = extension(file.path);
+  String dir = dirname(file.path);
+  int now = DateTime.now().millisecondsSinceEpoch;
+  String newName;
 
-    /// save image to gallery
-    await GallerySaver.saveImage(tempFile.path,
-        albumName: 'ID Scanner', toDcim: true);
-    update();
+  if (isFront) {
+    _frontImageName = Rx('front-$now$fileExtension');
+    newName = join(dir, frontImageName);
+    _frontImageFile = Rx(file);
+  } else {
+    _backImageName = Rx('back-$now$fileExtension');
+    newName = join(dir, backImageName);
+    _backImageFile = Rx(file);
   }
+
+  // Compress the image before saving
+  File? compressedFile = await _compressImage(file, newName);
+
+  if (compressedFile != null) {
+    /// Save compressed image to gallery
+    await GallerySaver.saveImage(compressedFile.path,
+        albumName: 'ID Scanner', toDcim: true);
+  } else {
+    print("Image compression failed");
+  }
+
+  update();
+}
+
+// Function to compress the image
+Future<File?> _compressImage(File file, String targetPath) async {
+  try {
+    File? compressedFile = await FlutterImageCompress.compressAndGetFile(
+      file.absolute.path, // Input file path
+      targetPath, // Target file path
+      quality: 50, // Compression quality (adjust as needed)
+    );
+    return compressedFile;
+  } catch (e) {
+    print("Error compressing image: $e");
+    return null;
+  }
+}
+
+
+  // Future chooseCardImage({bool isFront = true}) async {
+  //   final file = await Utils.pickMedia(isCamera: camera, cropImage: cropImage);
+  //   // final file = await Utils.pickMedia(isCamera: camera);
+  //   if (file == null || file == File('') || file.path == '') return;
+
+  //   // /storage/emulated/0/DCIM/ID Scanner/
+  //   String fileExtension = extension(file.path);
+  //   String dir = dirname(file.path);
+  //   int now = DateTime.now().millisecondsSinceEpoch;
+  //   String newName;
+
+  //   if (isFront) {
+  //     _frontImageName = Rx('front-$now$fileExtension');
+  //     newName = join(dir, frontImageName);
+  //     _frontImageFile = Rx(file);
+  //   } else {
+  //     _backImageName = Rx('back-$now$fileExtension');
+  //     newName = join(dir, backImageName);
+  //     _backImageFile = Rx(file);
+  //   }
+
+  //   File tempFile = await file.copy(newName);
+
+  //   /// save image to gallery
+  //   await GallerySaver.saveImage(tempFile.path,
+  //       albumName: 'ID Scanner', toDcim: true);
+  //   update();
+  // }
+
 
   Future<String?> getSerialNumber() async {
     try {

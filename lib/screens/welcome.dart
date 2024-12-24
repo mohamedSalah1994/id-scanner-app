@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:id_scanner/components/alert_exit_app.dart';
-import 'package:id_scanner/controllers/location_controller.dart';
+
 
 
 import '../app_data.dart';

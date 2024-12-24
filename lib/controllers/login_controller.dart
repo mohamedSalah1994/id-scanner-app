@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -95,7 +96,9 @@ class LoginController extends GetxController {
   String? tokenString = CacheHelper.getData(key: 'token'); // Retrieve the JSON string
 
   if (tokenString == null) {
-    print("No token found. Cannot log out.");
+    if (kDebugMode) {
+      print("No token found. Cannot log out.");
+    }
     return; // Early return if there is no token
   }
 
@@ -114,16 +117,22 @@ class LoginController extends GetxController {
     if (response.statusCode == 200 || response.statusCode == 201) {
       // Remove token from cache after successful logout
       await CacheHelper.removeData(key: "token");
-      print("Logged out successfully. Token removed.");
+      if (kDebugMode) {
+        print("Logged out successfully. Token removed.");
+      }
 
       // Navigate to the Welcome page
       Get.offAllNamed(Welcome.id);
     } else {
-      print("Logout failed: ${response.body}");
+      if (kDebugMode) {
+        print("Logout failed: ${response.body}");
+      }
       messageAlert(response.body, context);
     }
   } catch (e) {
-    print("Error during logout: $e");
+    if (kDebugMode) {
+      print("Error during logout: $e");
+    }
     messageAlert("An error occurred. Please try again.", context);
   }
 }
