@@ -4,12 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:id_scanner/components/show_snack_bar.dart';
-
 import 'package:id_scanner/controllers/card_controller.dart';
 import 'package:id_scanner/models/events_model.dart';
-import 'package:id_scanner/widgets/internet_widget.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-
 import '../app_data.dart';
 import '../components/custom_widgets.dart';
 import '../components/input_filed_decoration.dart';
@@ -25,71 +22,96 @@ class AddCard extends StatefulWidget {
 }
 
 class _AddCardState extends State<AddCard> {
-  // EventModel? eventModel = Get.arguments;
+  @override
+  void initState() {
+    super.initState();
+    _loadDataWithTimeout();
+  }
+
+  /// Function to load data with timeout
+  void _loadDataWithTimeout() async {
+    final controller = Get.find<CardController>();
+    // Call the function to fetch events
+    controller.getEvents();
+ // Wait for a duration (e.g., 5 seconds) to check if data is loaded
+    await Future.delayed(const Duration(seconds: 5));
+  }
+
+  /// Retry fetching data
+
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CardController>(
       init: CardController(),
       builder: (controller) {
-        //  controller.getEvents();
-
         return Directionality(
           textDirection: TextDirection.rtl,
-          child: InterNetWidget(
-            widget: Scaffold(
-              backgroundColor: Colors.white,
-              appBar: AppBar(
-                title: Text('إنشاء ملف البطاقة',
-                    style: TextStyle(color: AppData.primaryFontColor)),
-                backgroundColor: Colors.white,
-                centerTitle: true,
-                elevation: 0,
-                leading: IconButton(
-                  icon: Icon(Icons.arrow_back,
-                      color: AppData.primaryFontColor, size: 25),
-                  onPressed: () {
-                    controller.resetAttributes();
-                    Get.back();
-                  },
-                ),
-                actions: [
-                  Container(
-                    alignment: Alignment.center,
-                    child: MyText(
-                      text: controller.camera ? 'الكاميرا' : 'الإستوديو',
-                      color: AppData.secondaryFontColor,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  SizedBox(
-                    width: 40,
-                    child: FittedBox(
-                      child: CupertinoSwitch(
-                        value: controller.camera,
-                        onChanged: (val) => controller.camera = val,
-                        activeColor: Colors.blueAccent,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 5),
-                ],
+          child: Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+              title: Text(
+                'إنشاء ملف البطاقة',
+                style: TextStyle(color: AppData.primaryFontColor),
               ),
-              body: ModalProgressHUD(
-                progressIndicator: CircularProgressIndicator(
-                  color: AppData.mainColor,
+              backgroundColor: Colors.white,
+              centerTitle: true,
+              elevation: 0,
+              leading: IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: AppData.primaryFontColor,
+                  size: 25,
                 ),
-                inAsyncCall: controller.isLoading,
+                onPressed: () {
+                  controller.resetAttributes();
+                  Get.back();
+                },
+              ),
+              actions: [
+                Container(
+                  alignment: Alignment.center,
+                  child: MyText(
+                    text: controller.camera ? 'الكاميرا' : 'الإستوديو',
+                    color: AppData.secondaryFontColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(width: 10),
+                SizedBox(
+                  width: 40,
+                  child: FittedBox(
+                    child: CupertinoSwitch(
+                      value: controller.camera,
+                      onChanged: (val) => controller.camera = val,
+                      activeColor: AppData.mainColor,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 5),
+              ],
+            ),
+            body: ModalProgressHUD(
+              progressIndicator: CircularProgressIndicator(
+                color: AppData.mainColor,
+              ),
+              inAsyncCall: controller.isLoading,
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  await controller.getEvents();
+                },
                 child: RawScrollbar(
-                  thumbColor: Colors.blue,
-                  thickness: 4,
+                  thumbColor: AppData.mainColor,
+                  thickness: 2,
                   thumbVisibility: true,
-                  // trackVisibility: true,
                   child: ListView(
                     padding: const EdgeInsets.only(
-                        left: 25, right: 25, top: 0, bottom: 5),
+                      left: 25,
+                      right: 25,
+                      top: 0,
+                      bottom: 5,
+                    ),
                     children: [
                       Form(
                         key: controller.createFormKey,
@@ -100,36 +122,72 @@ class _AddCardState extends State<AddCard> {
                             const SizedBox(height: 5),
                             controller.loading
                                 ? const Center(
-                                    child: CircularProgressIndicator())
-                                : DropdownButtonFormField2(
-                                    decoration: kAddCardInputFieldDecoration,
-                                    isExpanded: true,
-                                    icon: const Icon(Icons.keyboard_arrow_down),
-                                    iconSize: 30,
-                                    buttonHeight: 50,
-                                    buttonPadding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    dropdownDecoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    items: controller.eventObject.data
-                                        .map<DropdownMenuItem<EventDatum>>(
-                                            (EventDatum event) {
-                                      return DropdownMenuItem<EventDatum>(
-                                        value: event,
+                                    child: CircularProgressIndicator(),
+                                  )
+                                : controller.eventObject!.data.isEmpty
+                                    ? const Center(
                                         child: Text(
-                                          event.eventName.capitalize.toString(),
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
+                                          'حاول التحديث مره اخره',
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.grey,
                                           ),
+                                          textAlign: TextAlign.center,
                                         ),
-                                      );
-                                    }).toList(),
-                                    onChanged: (EventDatum? newValue) {
-                                      controller.selected = newValue;
-                                    },
-                                   
-                                  ),
+                                      )
+                                    : DropdownButtonFormField2(
+                                        decoration:
+                                            kAddCardInputFieldDecoration,
+                                        isExpanded: true,
+                                        icon: const Icon(
+                                            Icons.keyboard_arrow_down),
+                                        iconSize: 30,
+                                        buttonHeight: 50,
+                                        buttonPadding:
+                                            const EdgeInsets.symmetric(
+                                                horizontal: 10),
+                                        dropdownDecoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        items: controller.eventObject.data
+                                            .map<DropdownMenuItem<EventDatum>>(
+                                          (EventDatum event) {
+                                            return DropdownMenuItem<EventDatum>(
+                                              value: event,
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                    width: 20,
+                                                    height: 20,
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: Color(
+                                                        int.parse(event
+                                                            .eventColor
+                                                            .replaceFirst(
+                                                                '#', '0xff')),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 10),
+                                                  Text(
+                                                    event.eventName,
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        ).toList(),
+                                        onChanged: (EventDatum? newValue) {
+                                          controller.selected = newValue;
+                                          controller.update();
+                                        },
+                                      ),
                             const SizedBox(height: 20),
                             inputLabel('وجه البطاقة'),
                             const SizedBox(height: 5),
@@ -150,15 +208,14 @@ class _AddCardState extends State<AddCard> {
                                         ),
                                       ),
                                 child: controller.frontImageName!.isEmpty
-                                    ? Icon(Icons.image,
+                                    ? Icon(
+                                        Icons.image,
                                         color: AppData.placeholderColor,
-                                        size: 80)
+                                        size: 80,
+                                      )
                                     : Container(),
                               ),
                             ),
-                            // ValidationError(
-                            //     errorMessage: 'أدخل وجه البطاقة',
-                            //     visible: controller.frontImageName!.isEmpty),
                             const SizedBox(height: 20),
                             RoundedButton(
                               color: Colors.white,
@@ -195,15 +252,14 @@ class _AddCardState extends State<AddCard> {
                                         ),
                                       ),
                                 child: controller.backImageName!.isEmpty
-                                    ? Icon(Icons.image,
+                                    ? Icon(
+                                        Icons.image,
                                         color: AppData.placeholderColor,
-                                        size: 80)
+                                        size: 80,
+                                      )
                                     : Container(),
                               ),
                             ),
-                            // ValidationError(
-                            //     errorMessage: 'أدخل ظهر البطاقة',
-                            //     visible: controller.backImageName!.isEmpty),
                             const SizedBox(height: 50),
                             RoundedButton(
                               color: Colors.white,
@@ -225,29 +281,33 @@ class _AddCardState extends State<AddCard> {
                       ),
                       const SizedBox(height: 15),
                       RoundedButton(
-                          color: AppData.mainColor,
-                          child: const MyText(
-                              text: 'إنشاء', color: Colors.white, fontSize: 20),
-                          onPressed: () {
-                            if (controller.selected == null) {
-                              showWarningSnackBar(
-                                'تنبيه',
-                                'يجب أن تختار نشاط',
-                              );
-                            } else if (controller.frontImageName!.isEmpty) {
-                              showWarningSnackBar(
-                                'تنبيه',
-                                'يجب أن تدخل وجه البطاقه',
-                              );
-                            } else if (controller.backImageName!.isEmpty) {
-                              showWarningSnackBar(
-                                'تنبيه',
-                                'يجب أن تدخل ظهر البطاقه',
-                              );
-                            } else {
-                              return controller.createCard();
-                            }
-                          }),
+                        color: AppData.mainColor,
+                        child: const MyText(
+                          text: 'إنشاء',
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
+                        onPressed: () {
+                          if (controller.selected == null) {
+                            showWarningSnackBar(
+                              'تنبيه',
+                              'يجب أن تختار نشاط',
+                            );
+                          } else if (controller.frontImageName!.isEmpty) {
+                            showWarningSnackBar(
+                              'تنبيه',
+                              'يجب أن تدخل وجه البطاقه',
+                            );
+                          } else if (controller.backImageName!.isEmpty) {
+                            showWarningSnackBar(
+                              'تنبيه',
+                              'يجب أن تدخل ظهر البطاقه',
+                            );
+                          } else {
+                            return controller.createCard();
+                          }
+                        },
+                      ),
                     ],
                   ),
                 ),

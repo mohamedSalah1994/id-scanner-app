@@ -49,7 +49,8 @@ class _ScanImageState extends State<ScanImage> {
     super.dispose();
   }
 
-  Widget _buildField(String label, TextEditingController controller, int index) {
+  Widget _buildField(
+      String label, TextEditingController controller, int index) {
     return Row(
       children: [
         SizedBox(
@@ -141,13 +142,15 @@ class _ScanImageState extends State<ScanImage> {
               ],
             ),
             body: ModalProgressHUD(
-              progressIndicator: CircularProgressIndicator(color: AppData.mainColor),
+              progressIndicator:
+                  CircularProgressIndicator(color: AppData.mainColor),
               inAsyncCall: controller.isLoading,
               child: ListView(
                 padding: const EdgeInsets.all(10),
                 children: [
                   Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                     height: 150,
                     child: Row(
                       children: [
@@ -164,7 +167,8 @@ class _ScanImageState extends State<ScanImage> {
                           child: Column(
                             children: [
                               Expanded(
-                                child: _getImage(cardData.croppedPersonalImage.toString()),
+                                child: _getImage(
+                                    cardData.croppedPersonalImage.toString()),
                               ),
                             ],
                           ),
@@ -177,7 +181,8 @@ class _ScanImageState extends State<ScanImage> {
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
                       children: [
-                        _buildStaticField('الرقم القومى', cardData.nationalId ?? ''),
+                        _buildStaticField(
+                            'الرقم القومى', cardData.nationalId ?? ''),
                         const SizedBox(height: 30.0),
                         _buildField('الإسم', controllers[0], 0),
                         const SizedBox(height: 20.0),
@@ -191,12 +196,16 @@ class _ScanImageState extends State<ScanImage> {
                         const SizedBox(height: 20.0),
                         _buildField('الحالة الإجتماعية', controllers[4], 4),
                         const SizedBox(height: 25.0),
-                        _buildStaticField('تاريخ الميلاد', cardData.birthdate ?? ''),
+                        _buildStaticField(
+                            'تاريخ الميلاد', cardData.birthdate ?? ''),
                         const SizedBox(height: 25.0),
-                        _buildStaticField('محل الميلاد', cardData.birthPlace ?? ''),
-                        if (cardData.hus != null && cardData.hus!.isNotEmpty)
+                        _buildStaticField(
+                            'محل الميلاد', cardData.birthPlace ?? ''),
+                        if (cardData.hus != null &&
+                            cardData.hus!.isNotEmpty) ...[
                           const SizedBox(height: 20.0),
                           _buildField('اسم الزوج', controllers[5], 5),
+                        ],
                       ],
                     ),
                   ),
@@ -218,7 +227,8 @@ class _ScanImageState extends State<ScanImage> {
                     },
                     child: Container(
                       color: Colors.black,
-                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 20),
                       child: const Text(
                         'حفظ البيانات',
                         style: TextStyle(color: Colors.white, fontSize: 20.0),

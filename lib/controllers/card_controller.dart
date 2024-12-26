@@ -30,7 +30,7 @@ import 'package:http/http.dart' as http;
 class CardController extends GetxController {
   DBHelper dbHelper = DBHelper();
   
-  late EventModel eventObject;
+  EventModel eventObject = EventModel(status: '', data: []);
   @override
   void onInit() {
     getEvents();
@@ -380,8 +380,11 @@ Future<File?> _compressImage(File file, String targetPath) async {
         
 
         ///error
+      }else{
+        changeState(false);
       }
     } catch (e) {
+      changeState(false);
       log('Error while getting data is $e');
     } finally {
       // changeState(false);
